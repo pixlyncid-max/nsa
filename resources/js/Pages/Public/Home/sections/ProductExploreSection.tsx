@@ -1,6 +1,7 @@
 import Section from '@/Components/layout/Section';
 import SectionHeading from '@/Components/layout/SectionHeading';
 import Button from '@/Components/ui/Button';
+import { useSiteMedia } from '@/hooks/useSiteMedia';
 import { homeMedia } from '@/lib/homeMedia';
 import { cx } from '@/lib/cx';
 import { useLocale } from '@/lib/lroute';
@@ -29,6 +30,7 @@ export default function ProductExploreSection({
     products = [],
 }: ProductExploreSectionProps) {
     const { isEn, lp } = useLocale();
+    const { media } = useSiteMedia();
     const [activePanel, setActivePanel] = useState<number | null>(null);
 
     const portals = [
@@ -55,7 +57,7 @@ export default function ProductExploreSection({
                       'Pakan Apung Komersial',
                       'Terpal & Aerator Bioflok',
                   ],
-            image: homeMedia.products['air-tawar'],
+            image: media('explore_freshwater', homeMedia.products['air-tawar']),
             icon: Waves,
             href: lp('/produk?group=freshwater'),
         },
@@ -82,7 +84,7 @@ export default function ProductExploreSection({
                       'Umpan Alami & Suplemen',
                       'Peralatan Tambak Pesisir',
                   ],
-            image: homeMedia.products['air-laut'],
+            image: media('explore_saltwater', homeMedia.products['air-laut']),
             icon: Compass,
             href: lp('/produk?group=saltwater'),
         },
@@ -109,7 +111,7 @@ export default function ProductExploreSection({
                       'Test Kit Kualitas Air',
                       'Jaring & Alat Panen',
                   ],
-            image: homeMedia.products['lain-lain'],
+            image: media('explore_other', homeMedia.products['lain-lain']),
             icon: Package,
             href: lp('/produk?group=other'),
         },

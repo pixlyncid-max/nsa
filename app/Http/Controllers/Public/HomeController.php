@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Services\SiteMediaService;
 use App\Services\StatisticService;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -10,7 +11,8 @@ use Inertia\Response;
 class HomeController extends Controller
 {
     public function __construct(
-        protected StatisticService $statisticService
+        protected StatisticService $statisticService,
+        protected SiteMediaService $siteMediaService,
     ) {}
 
     /**
@@ -32,8 +34,14 @@ class HomeController extends Controller
      */
     private function resolveHeroConfig(): array
     {
-        $desktop = $this->buildVariantPayload(config('hero.desktop', []));
-        $mobile = $this->buildVariantPayload(config('hero.mobile', []));
+        $desktop = $this->buildVariantPayload(
+            config('hero.desktop', []),
+            $this->siteMediaService->uploadedUrl('hero_desktop')
+        );
+        $mobile = $this->buildVariantPayload(
+            config('hero.mobile', []),
+            $this->siteMediaService->uploadedUrl('hero_mobile')
+        );
 
         return [
             'hasDesktop' => $desktop['exists'],
@@ -48,8 +56,21 @@ class HomeController extends Controller
      * @param  array<string, mixed>  $cfg
      * @return array<string, mixed>
      */
-    private function buildVariantPayload(array $cfg): array
+    private function buildVariantPayload(array $cfg, ?string $cmsOverrideUrl = null): array
     {
+        if ($cmsOverrideUrl !== null) {
+            return [
+                'exists' => true,
+                'src' => $cmsOverrideUrl,
+                'avifSrcSet' => '',
+                'webpSrcSet' => '',
+                'width' => (int) ($cfg['width'] ?? 2560),
+                'height' => (int) ($cfg['height'] ?? 1100),
+                'objectPosition' => (string) ($cfg['object_position'] ?? 'center'),
+                'alt' => (string) ($cfg['alt'] ?? ''),
+            ];
+        }
+
         $master = (string) ($cfg['master'] ?? '');
         $base = (string) ($cfg['base'] ?? '');
         $widths = array_map('intval', (array) ($cfg['widths'] ?? []));

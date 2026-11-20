@@ -111,6 +111,7 @@ export type PageProps<
     copy?: Record<string, string>;
     canEditCopy?: boolean;
     brand: Brand;
+    siteMedia?: Record<string, string | null>;
 };
 
 declare global {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Setting;
+use App\Services\SiteMediaService;
 use App\Support\Brand;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -145,6 +146,8 @@ class SettingController extends Controller
             $pathDark = $request->file('logo_dark')->store('settings', 'public');
             Setting::set('brand_logo_dark', $pathDark);
         }
+
+        app(SiteMediaService::class)->clearCache();
 
         ActivityLog::log(
             action: 'update_settings',

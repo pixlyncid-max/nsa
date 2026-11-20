@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SiteMediaController;
 use App\Http\Controllers\Admin\SiteTextController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\TranslationCenterController;
@@ -155,6 +156,19 @@ Route::prefix('pesan')->name('messages.')->group(function () {
     Route::get('/', [ContactMessageController::class, 'index'])->name('index');
     Route::patch('/{message}/baca', [ContactMessageController::class, 'markAsRead'])->name('read');
     Route::delete('/{message}', [ContactMessageController::class, 'destroy'])->name('destroy');
+});
+
+// ========================================================
+// Modul Gambar Website (Non-Produk: Hero, Strip, Banner, Logo)
+// ========================================================
+Route::prefix('gambar-website')->name('site-media.')->group(function () {
+    Route::get('/', [SiteMediaController::class, 'index'])->name('index');
+    Route::post('/{slot}', [SiteMediaController::class, 'update'])
+        ->where('slot', '[a-z0-9_]+')
+        ->name('update');
+    Route::delete('/{slot}', [SiteMediaController::class, 'destroy'])
+        ->where('slot', '[a-z0-9_]+')
+        ->name('destroy');
 });
 
 // ========================================================

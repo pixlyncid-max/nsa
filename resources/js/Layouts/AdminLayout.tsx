@@ -12,6 +12,7 @@ import {
     Fish,
     FolderTree,
     Handshake,
+    Image as ImageIcon,
     Inbox,
     Languages,
     Layers,
@@ -106,6 +107,11 @@ const mainSections: SidebarSection[] = [
                 label: 'Halaman Statis',
                 href: '/admin/halaman',
                 icon: FileText,
+            },
+            {
+                label: 'Gambar Website',
+                href: '/admin/gambar-website',
+                icon: ImageIcon,
             },
             {
                 label: 'Mitra NSA',

@@ -10,6 +10,7 @@ import ContourPattern from '@/Components/motion/ContourPattern';
 import CountUp from '@/Components/motion/CountUp';
 import Button from '@/Components/ui/Button';
 import { usePrefersReducedMotion } from '@/hooks/useMediaQuery';
+import { useSiteMedia } from '@/hooks/useSiteMedia';
 import PublicLayout from '@/Layouts/PublicLayout';
 import { cx } from '@/lib/cx';
 import { homeMedia } from '@/lib/homeMedia';
@@ -102,6 +103,7 @@ export default function About({
     const brandShort = props.brand?.short_name || 'NSA';
     const isApprovedMember = user?.membership_status === 'approved';
     const reduced = usePrefersReducedMotion();
+    const { media } = useSiteMedia();
 
     const cta = resolveMembershipCta(user, promo, brandShort);
 
@@ -142,35 +144,35 @@ export default function About({
             desc:
                 content.history ||
                 'Didirikan pada tahun 2018 di Bogor dari keresahan bersama para pelaku budidaya air tawar dan petambak pesisir terhadap biaya pakan dan fluktuasi harga panen.',
-            image: homeMedia.hero[0]?.src,
+            image: media('about_history_1', homeMedia.hero[0]?.src),
             alt: 'Pertemuan awal pembudidaya kolam air tawar',
         },
         {
             year: '2019',
             title: 'Pengesahan Akta & Badan Hukum Nasional',
             desc: 'Resmi berbadan hukum perkumpulan melalui Akta Notaris dan pengesahan SK Kementerian Hukum dan HAM RI sebagai wadah profesi perikanan.',
-            image: homeMedia.hero[1]?.src,
+            image: media('about_history_2', homeMedia.hero[1]?.src),
             alt: 'Konsolidasi pengurus pusat dan wilayah',
         },
         {
             year: '2021',
             title: 'Jejaring Pakan Mandiri & Standardisasi Benih',
             desc: 'Membentuk simpul pengadaan pakan kolektif dan kemitraan balai pembenihan bersertifikat di sentra Jawa, Sumatera, dan Sulawesi.',
-            image: homeMedia.hero[2]?.src,
+            image: media('about_history_3', homeMedia.hero[2]?.src),
             alt: 'Panen komoditas budidaya anggota',
         },
         {
             year: '2023',
             title: 'Perluasan 38 Provinsi & KTA Digital',
             desc: 'Transformasi pendataan pembudidaya berbasis komoditas dan penerbitan Kartu Tanda Anggota (KTA) digital terverifikasi QR.',
-            image: homeMedia.products['air-tawar'],
+            image: media('explore_freshwater', homeMedia.products['air-tawar']),
             alt: 'Sentra budidaya air tawar modern',
         },
         {
             year: '2025',
             title: 'Inkubasi Ekspor & Pasar Horeka Terpadu',
             desc: 'Pendampingan sertifikasi CPIB mandiri dan pembukaan jalur distribusi langsung ke jaringan hotel, restoran, katering, serta pasar ekspor.',
-            image: homeMedia.products['air-laut'],
+            image: media('explore_saltwater', homeMedia.products['air-laut']),
             alt: 'Komoditas marikultur dan tambak pesisir',
         },
     ];
@@ -224,7 +226,7 @@ export default function About({
                     'Wadah profesi dan pelaku usaha perikanan budidaya independen yang mengadvokasi kemandirian petambak dari hulu ke hilir.'
                 }
                 variant="with-image"
-                imageSrc={homeMedia.hero[0]?.src}
+                imageSrc={media('about_banner', homeMedia.hero[0]?.src)}
                 imageAlt="Pembudidaya Nusantara Sustainable Aquatic"
             >
                 <div className="grid grid-cols-2 gap-6 border-t border-line pt-6 sm:grid-cols-4">

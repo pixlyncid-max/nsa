@@ -1,6 +1,7 @@
 import Container from '@/Components/layout/Container';
 import ArchImage from '@/Components/layout/ArchImage';
 import { useCopy } from '@/hooks/useCopy';
+import { useSiteMedia } from '@/hooks/useSiteMedia';
 import { productGroups } from '@/lib/navigation';
 import { focusRing } from '@/lib/ui';
 import { cx } from '@/lib/cx';
@@ -13,6 +14,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
  */
 export default function ProductMegaMenu() {
     const { t } = useCopy();
+    const { media } = useSiteMedia();
 
     return (
         <Container className="grid gap-8 py-8 lg:grid-cols-12 items-start">
@@ -86,7 +88,10 @@ export default function ProductMegaMenu() {
                     </div>
 
                     <ArchImage
-                        src="/images/products/featured-spotlight.jpg"
+                        src={media(
+                            'megamenu_spotlight',
+                            '/images/products/featured-spotlight.jpg'
+                        )}
                         alt={t('global.megamenu.spotlight_alt')}
                         aspectRatio="aspect-[16/10]"
                         className="mb-3"

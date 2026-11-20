@@ -7,6 +7,7 @@ use App\Enums\Role;
 use App\Models\MemberApplication;
 use App\Services\CartService;
 use App\Services\CopyService;
+use App\Services\SiteMediaService;
 use App\Support\Brand;
 use App\Support\LocaleUrl;
 use Illuminate\Http\Request;
@@ -99,6 +100,7 @@ class HandleInertiaRequests extends Middleware
                 ];
             },
             'brand' => fn () => Brand::toArray(),
+            'siteMedia' => fn () => app(SiteMediaService::class)->allUrls(),
             'locale' => fn () => app()->getLocale(),
             'availableLocales' => fn () => config('locales.locales', []),
             'alternates' => fn () => LocaleUrl::alternates($request),
@@ -202,8 +204,19 @@ class HandleInertiaRequests extends Middleware
      */
     protected function resolveJoinStripMedia(): array
     {
-        $desktop = $this->buildJoinStripVariant((array) config('join_strip.images.desktop', []), 2560, 320);
-        $mobile = $this->buildJoinStripVariant((array) config('join_strip.images.mobile', []), 1080, 720);
+        $mediaService = app(SiteMediaService::class);
+        $desktop = $this->buildJoinStripVariant(
+            (array) config('join_strip.images.desktop', []),
+            2560,
+            320,
+            $mediaService->uploadedUrl('join_strip_desktop')
+        );
+        $mobile = $this->buildJoinStripVariant(
+            (array) config('join_strip.images.mobile', []),
+            1080,
+            720,
+            $mediaService->uploadedUrl('join_strip_mobile')
+        );
 
         return [
             'hasDesktop' => $desktop['exists'],
@@ -217,8 +230,25 @@ class HandleInertiaRequests extends Middleware
      * @param  array<string, mixed>  $cfg
      * @return array<string, mixed>
      */
-    protected function buildJoinStripVariant(array $cfg, int $defaultWidth, int $defaultHeight): array
-    {
+    protected function buildJoinStripVariant(
+        array $cfg,
+        int $defaultWidth,
+        int $defaultHeight,
+        ?string $cmsOverrideUrl = null
+    ): array {
+        if ($cmsOverrideUrl !== null) {
+            return [
+                'exists' => true,
+                'src' => $cmsOverrideUrl,
+                'avifSrcSet' => '',
+                'webpSrcSet' => '',
+                'width' => (int) ($cfg['width'] ?? $defaultWidth),
+                'height' => (int) ($cfg['height'] ?? $defaultHeight),
+                'objectPosition' => (string) ($cfg['object_position'] ?? 'center'),
+                'alt' => (string) ($cfg['alt'] ?? ''),
+            ];
+        }
+
         $master = (string) ($cfg['master'] ?? '');
         $base = (string) ($cfg['base'] ?? '');
         $widths = array_map('intval', (array) ($cfg['widths'] ?? []));

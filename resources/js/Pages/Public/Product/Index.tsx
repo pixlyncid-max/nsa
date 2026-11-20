@@ -9,6 +9,7 @@ import Input from '@/Components/ui/Input';
 import Pagination from '@/Components/ui/Pagination';
 import Select from '@/Components/ui/Select';
 import { usePrefersReducedMotion } from '@/hooks/useMediaQuery';
+import { useSiteMedia } from '@/hooks/useSiteMedia';
 import PublicLayout from '@/Layouts/PublicLayout';
 import { cx } from '@/lib/cx';
 import { homeMedia } from '@/lib/homeMedia';
@@ -179,6 +180,7 @@ export default function ProductIndex({
     activeGroup,
 }: IndexProps) {
     const reduced = usePrefersReducedMotion();
+    const { media } = useSiteMedia();
     const [search, setSearch] = useState(filters.search || '');
     const [minPrice, setMinPrice] = useState(filters.min_price || '');
     const [maxPrice, setMaxPrice] = useState(filters.max_price || '');
@@ -661,6 +663,14 @@ export default function ProductIndex({
                         {GROUP_PORTALS.map((portal) => {
                             const Icon = portal.icon;
                             const isActive = activeGroup === portal.value;
+                            const portalImage = media(
+                                portal.value === 'freshwater'
+                                    ? 'explore_freshwater'
+                                    : portal.value === 'saltwater'
+                                      ? 'explore_saltwater'
+                                      : 'explore_other',
+                                portal.image
+                            );
                             const subChips =
                                 subCategoriesByGroup[portal.value]?.length > 0
                                     ? subCategoriesByGroup[portal.value]
@@ -679,9 +689,9 @@ export default function ProductIndex({
                                     {/* Latar Foto + Kontur Fallback + Overlay Navy Tipis */}
                                     <div className="absolute inset-0 -z-10 bg-navy">
                                         {!failedPortalImg[portal.value] &&
-                                        portal.image ? (
+                                        portalImage ? (
                                             <img
-                                                src={portal.image}
+                                                src={portalImage}
                                                 alt=""
                                                 onError={() =>
                                                     setFailedPortalImg((p) => ({
