@@ -1,0 +1,54 @@
+{
+  "available": true,
+  "source": "public/images/logo utama/Logo NSA.svg",
+  "whiteSource": null,
+  "format": "svg",
+  "width": 8457,
+  "height": 3188,
+  "ratio": 2.6528,
+  "hasAlpha": true,
+  "avgLuminance": 66,
+  "footerMode": "mono-white",
+  "footerModeReason": "Logo berlatar transparan (74%) dan dominan gelap (luminans 66/255), sehingga dibuat versi putih monokrom agar kontras jelas di atas footer navy.",
+  "navbar": {
+    "displayWidth": 106,
+    "displayHeight": 40,
+    "webp": {
+      "1x": "/images/brand/logo-navbar@1x.webp",
+      "2x": "/images/brand/logo-navbar@2x.webp",
+      "3x": "/images/brand/logo-navbar@3x.webp"
+    },
+    "png": {
+      "1x": "/images/brand/logo-navbar@1x.png",
+      "2x": "/images/brand/logo-navbar@2x.png",
+      "3x": "/images/brand/logo-navbar@3x.png"
+    },
+    "src": "/images/brand/logo-navbar@1x.png"
+  },
+  "footer": {
+    "displayWidth": 117,
+    "displayHeight": 44,
+    "webp": {
+      "1x": "/images/brand/logo-footer@1x.webp",
+      "2x": "/images/brand/logo-footer@2x.webp",
+      "3x": "/images/brand/logo-footer@3x.webp"
+    },
+    "png": {
+      "1x": "/images/brand/logo-footer@1x.png",
+      "2x": "/images/brand/logo-footer@2x.png",
+      "3x": "/images/brand/logo-footer@3x.png"
+    },
+    "src": "/images/brand/logo-footer@1x.png",
+    "whiteWebp": {
+      "1x": "/images/brand/logo-footer-white@1x.webp",
+      "2x": "/images/brand/logo-footer-white@2x.webp",
+      "3x": "/images/brand/logo-footer-white@3x.webp"
+    },
+    "whitePng": {
+      "1x": "/images/brand/logo-footer-white@1x.png",
+      "2x": "/images/brand/logo-footer-white@2x.png",
+      "3x": "/images/brand/logo-footer-white@3x.png"
+    },
+    "whiteSrc": "/images/brand/logo-footer-white@1x.png"
+  }
+}

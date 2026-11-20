@@ -1,0 +1,682 @@
+{
+    "component": "Member\/Register\/Index",
+    "props": {
+        "application": {
+            "id": 4,
+            "status": "approved",
+            "current_step": "informasi-akun",
+            "completed_steps": [
+                "informasi-akun",
+                "data-pribadi",
+                "data-usaha-perikanan",
+                "dokumen",
+                "media-sosial",
+                "data-komoditas",
+                "keanggotaan",
+                "surat-pernyataan",
+                "review-data"
+            ]
+        },
+        "currentStepSlug": "informasi-akun",
+        "draft": {
+            "step1": {
+                "name": "Budi Pratama (Anggota)",
+                "email": "anggota@ifaa.test",
+                "phone": "081398765432",
+                "has_password": true
+            },
+            "step2": {
+                "nik": "3201011204850001",
+                "name_ktp": "Budi Pratama (Anggota)",
+                "birth_place": "Bogor",
+                "birth_date": "1985-04-12",
+                "gender": "male",
+                "occupation": "",
+                "province_id": null,
+                "regency_id": null,
+                "district_id": null,
+                "village_id": null,
+                "postal_code": "",
+                "address": "Jl. Mina Bahari No. 12, RT 02\/RW 04, Cijeruk",
+                "is_domicile_same": true,
+                "domicile_province_id": null,
+                "domicile_regency_id": null,
+                "domicile_district_id": null,
+                "domicile_village_id": null,
+                "domicile_postal_code": "",
+                "domicile_address": "",
+                "photo": null
+            },
+            "step3": {
+                "membership_type": "Pembudidaya",
+                "membership_type_other": "",
+                "business_name": "Mina Sejahtera Aquaculture",
+                "owner_name": "Budi Pratama",
+                "nib": "9120001234567",
+                "npwp": "09.123.456.7-403.000",
+                "founded_at": "2018-05-10",
+                "employee_count": 12,
+                "annual_revenue": 0,
+                "business_status": "Milik Sendiri",
+                "business_scale": "Menengah",
+                "province_id": 32,
+                "regency_id": 3201,
+                "district_id": null,
+                "village_id": null,
+                "postal_code": "16740",
+                "business_address": "Desa Cijeruk, Kec. Cijeruk, Kabupaten Bogor",
+                "latitude": -6.68921,
+                "longitude": 106.78241,
+                "business_field_ids": [],
+                "business_field_other": ""
+            },
+            "step4": {
+                "documents": []
+            },
+            "step5": {
+                "website": "",
+                "instagram": "",
+                "facebook": "",
+                "tiktok": "",
+                "youtube": "",
+                "whatsapp": ""
+            },
+            "step6": {
+                "commodities": []
+            },
+            "step7": {
+                "membership_plan_id": null,
+                "membership_type": "Pembudidaya",
+                "dpc_id": 1,
+                "previous_organization": "",
+                "recommender_name": "",
+                "join_reason": ""
+            },
+            "step8": {
+                "agree_data_accurate": false,
+                "agree_ad_art": false,
+                "agree_privacy_policy": false,
+                "has_signature": false,
+                "signature_url": null,
+                "city": "Kabupaten Bogor",
+                "date": "29 Oktober 2026",
+                "signed_at": null
+            }
+        },
+        "supportContact": {
+            "phone": "+62 21 8765 4321",
+            "email": "sekretariat@ifaa.test"
+        },
+        "businessFields": [
+            {
+                "id": 1,
+                "name": "Udang",
+                "slug": "udang"
+            },
+            {
+                "id": 2,
+                "name": "Kepiting",
+                "slug": "kepiting"
+            },
+            {
+                "id": 3,
+                "name": "Lobster",
+                "slug": "lobster"
+            },
+            {
+                "id": 4,
+                "name": "Rajungan",
+                "slug": "rajungan"
+            },
+            {
+                "id": 5,
+                "name": "Rumput Laut",
+                "slug": "rumput-laut"
+            },
+            {
+                "id": 6,
+                "name": "Ikan Air Tawar",
+                "slug": "ikan-air-tawar"
+            },
+            {
+                "id": 7,
+                "name": "Ikan Laut",
+                "slug": "ikan-laut"
+            },
+            {
+                "id": 8,
+                "name": "Pakan",
+                "slug": "pakan"
+            },
+            {
+                "id": 9,
+                "name": "Cold Storage",
+                "slug": "cold-storage"
+            },
+            {
+                "id": 10,
+                "name": "Logistik",
+                "slug": "logistik"
+            },
+            {
+                "id": 11,
+                "name": "Pengolahan",
+                "slug": "pengolahan"
+            },
+            {
+                "id": 12,
+                "name": "Ekspor",
+                "slug": "ekspor"
+            },
+            {
+                "id": 13,
+                "name": "Impor",
+                "slug": "impor"
+            },
+            {
+                "id": 14,
+                "name": "Hatchery",
+                "slug": "hatchery"
+            },
+            {
+                "id": 15,
+                "name": "Tambak",
+                "slug": "tambak"
+            },
+            {
+                "id": 16,
+                "name": "Budidaya",
+                "slug": "budidaya"
+            },
+            {
+                "id": 17,
+                "name": "Alat Perikanan",
+                "slug": "alat-perikanan"
+            },
+            {
+                "id": 18,
+                "name": "Industri Hilir",
+                "slug": "industri-hilir"
+            },
+            {
+                "id": 19,
+                "name": "Jasa Pendukung",
+                "slug": "jasa-pendukung"
+            },
+            {
+                "id": 20,
+                "name": "Lainnya",
+                "slug": "lainnya"
+            }
+        ],
+        "fishCategories": [
+            {
+                "id": 9,
+                "name": "Bandeng",
+                "slug": "bandeng"
+            },
+            {
+                "id": 6,
+                "name": "Ikan Bawal",
+                "slug": "ikan-bawal"
+            },
+            {
+                "id": 5,
+                "name": "Ikan Gurame",
+                "slug": "ikan-gurame"
+            },
+            {
+                "id": 10,
+                "name": "Ikan Kerapu & Kakap",
+                "slug": "ikan-kerapu-kakap"
+            },
+            {
+                "id": 1,
+                "name": "Ikan Lele",
+                "slug": "ikan-lele"
+            },
+            {
+                "id": 3,
+                "name": "Ikan Mas",
+                "slug": "ikan-mas"
+            },
+            {
+                "id": 2,
+                "name": "Ikan Nila",
+                "slug": "ikan-nila"
+            },
+            {
+                "id": 4,
+                "name": "Ikan Patin",
+                "slug": "ikan-patin"
+            },
+            {
+                "id": 8,
+                "name": "Kepiting & Rajungan",
+                "slug": "kepiting-rajungan"
+            },
+            {
+                "id": 7,
+                "name": "Udang Vaname",
+                "slug": "udang-vaname"
+            }
+        ],
+        "provinces": [
+            {
+                "id": 11,
+                "name": "Aceh"
+            },
+            {
+                "id": 51,
+                "name": "Bali"
+            },
+            {
+                "id": 36,
+                "name": "Banten"
+            },
+            {
+                "id": 17,
+                "name": "Bengkulu"
+            },
+            {
+                "id": 34,
+                "name": "DI Yogyakarta"
+            },
+            {
+                "id": 31,
+                "name": "DKI Jakarta"
+            },
+            {
+                "id": 75,
+                "name": "Gorontalo"
+            },
+            {
+                "id": 15,
+                "name": "Jambi"
+            },
+            {
+                "id": 32,
+                "name": "Jawa Barat"
+            },
+            {
+                "id": 33,
+                "name": "Jawa Tengah"
+            },
+            {
+                "id": 35,
+                "name": "Jawa Timur"
+            },
+            {
+                "id": 61,
+                "name": "Kalimantan Barat"
+            },
+            {
+                "id": 63,
+                "name": "Kalimantan Selatan"
+            },
+            {
+                "id": 62,
+                "name": "Kalimantan Tengah"
+            },
+            {
+                "id": 64,
+                "name": "Kalimantan Timur"
+            },
+            {
+                "id": 65,
+                "name": "Kalimantan Utara"
+            },
+            {
+                "id": 19,
+                "name": "Kepulauan Bangka Belitung"
+            },
+            {
+                "id": 21,
+                "name": "Kepulauan Riau"
+            },
+            {
+                "id": 18,
+                "name": "Lampung"
+            },
+            {
+                "id": 81,
+                "name": "Maluku"
+            },
+            {
+                "id": 82,
+                "name": "Maluku Utara"
+            },
+            {
+                "id": 52,
+                "name": "Nusa Tenggara Barat"
+            },
+            {
+                "id": 53,
+                "name": "Nusa Tenggara Timur"
+            },
+            {
+                "id": 93,
+                "name": "Papua"
+            },
+            {
+                "id": 91,
+                "name": "Papua Barat"
+            },
+            {
+                "id": 92,
+                "name": "Papua Barat Daya"
+            },
+            {
+                "id": 96,
+                "name": "Papua Pegunungan"
+            },
+            {
+                "id": 94,
+                "name": "Papua Selatan"
+            },
+            {
+                "id": 95,
+                "name": "Papua Tengah"
+            },
+            {
+                "id": 14,
+                "name": "Riau"
+            },
+            {
+                "id": 76,
+                "name": "Sulawesi Barat"
+            },
+            {
+                "id": 73,
+                "name": "Sulawesi Selatan"
+            },
+            {
+                "id": 72,
+                "name": "Sulawesi Tengah"
+            },
+            {
+                "id": 74,
+                "name": "Sulawesi Tenggara"
+            },
+            {
+                "id": 71,
+                "name": "Sulawesi Utara"
+            },
+            {
+                "id": 13,
+                "name": "Sumatera Barat"
+            },
+            {
+                "id": 16,
+                "name": "Sumatera Selatan"
+            },
+            {
+                "id": 12,
+                "name": "Sumatera Utara"
+            }
+        ],
+        "membershipTypes": [
+            "Pembudidaya",
+            "Nelayan",
+            "Pengolah",
+            "Pedagang",
+            "Eksportir",
+            "Importir",
+            "Supplier",
+            "Industri",
+            "Akademisi",
+            "Konsultan",
+            "Pemerhati Perikanan",
+            "Lainnya"
+        ],
+        "businessStatuses": [
+            "Perorangan",
+            "CV",
+            "PT",
+            "Koperasi",
+            "Kelompok Pembudidaya\/Poklahan",
+            "Lainnya"
+        ],
+        "businessScales": [
+            "Mikro",
+            "Kecil",
+            "Menengah",
+            "Besar"
+        ],
+        "memberDocumentsConfig": {
+            "ktp": {
+                "type": "ktp",
+                "title": "Kartu Tanda Penduduk (KTP)",
+                "description": "Foto atau pindaian KTP asli penanggung jawab usaha.",
+                "required": true,
+                "multiple": false,
+                "max_files": 1,
+                "max_size_kb": 2048,
+                "allowed_mimes": [
+                    "image\/jpeg",
+                    "image\/png",
+                    "application\/pdf"
+                ],
+                "allowed_extensions": [
+                    "jpg",
+                    "jpeg",
+                    "png",
+                    "pdf"
+                ]
+            },
+            "nib": {
+                "type": "nib",
+                "title": "Nomor Induk Berusaha (NIB)",
+                "description": "Dokumen NIB resmi dari OSS berformat PDF atau gambar.",
+                "required": true,
+                "multiple": false,
+                "max_files": 1,
+                "max_size_kb": 5120,
+                "allowed_mimes": [
+                    "application\/pdf",
+                    "image\/jpeg",
+                    "image\/png"
+                ],
+                "allowed_extensions": [
+                    "pdf",
+                    "jpg",
+                    "jpeg",
+                    "png"
+                ]
+            },
+            "npwp": {
+                "type": "npwp",
+                "title": "NPWP Badan \/ Usaha",
+                "description": "Kartu atau surat keterangan terdaftar NPWP badan (opsional).",
+                "required": false,
+                "multiple": false,
+                "max_files": 1,
+                "max_size_kb": 2048,
+                "allowed_mimes": [
+                    "application\/pdf",
+                    "image\/jpeg",
+                    "image\/png"
+                ],
+                "allowed_extensions": [
+                    "pdf",
+                    "jpg",
+                    "jpeg",
+                    "png"
+                ]
+            },
+            "business_photo": {
+                "type": "business_photo",
+                "title": "Foto Tempat \/ Kegiatan Usaha",
+                "description": "Foto tambak, kolam, dermaga, gudang, atau armada usaha (minimal 1, maksimal 5).",
+                "required": true,
+                "multiple": true,
+                "min_files": 1,
+                "max_files": 5,
+                "max_size_kb": 3072,
+                "allowed_mimes": [
+                    "image\/jpeg",
+                    "image\/png"
+                ],
+                "allowed_extensions": [
+                    "jpg",
+                    "jpeg",
+                    "png"
+                ]
+            },
+            "deed": {
+                "type": "deed",
+                "title": "Akta Pendirian",
+                "description": "Akta notaris pendirian atau SK Kemenkumham (opsional, bila berbadan hukum).",
+                "required": false,
+                "multiple": false,
+                "max_files": 1,
+                "max_size_kb": 5120,
+                "allowed_mimes": [
+                    "application\/pdf",
+                    "image\/jpeg",
+                    "image\/png"
+                ],
+                "allowed_extensions": [
+                    "pdf",
+                    "jpg",
+                    "jpeg",
+                    "png"
+                ]
+            },
+            "other": {
+                "type": "other",
+                "title": "Dokumen Pendukung Lainnya",
+                "description": "Sertifikat kelayakan (CBIB, CPIB, HACCP, SKP) atau izin perikanan (opsional, maksimal 3).",
+                "required": false,
+                "multiple": true,
+                "min_files": 0,
+                "max_files": 3,
+                "max_size_kb": 5120,
+                "allowed_mimes": [
+                    "application\/pdf",
+                    "image\/jpeg",
+                    "image\/png"
+                ],
+                "allowed_extensions": [
+                    "pdf",
+                    "jpg",
+                    "jpeg",
+                    "png"
+                ]
+            }
+        },
+        "membershipPlans": [
+            {
+                "id": 1,
+                "name": "Anggota Biasa (Pembudidaya & Nelayan)",
+                "slug": "anggota-biasa",
+                "description": "Ditujukan khusus bagi pembudidaya ikan air tawar, payau, laut, petambak, dan nelayan perorangan maupun kelompok tani.",
+                "benefits": [
+                    "Kartu Tanda Anggota (KTA) resmi berbarcode & nomor register nasional",
+                    "Akses ke rantai pasok pakan pabrikan & benih bersertifikasi dengan harga anggota",
+                    "Bimbingan teknis budidaya, penanganan penyakit ikan, dan standarisasi CBIB\/CPIB",
+                    "Hak suara penuh dalam musyawarah cabang (DPC) & temu akbar nasional IFAA",
+                    "Akses pendampingan perizinan berusaha OSS-RBA perikanan"
+                ],
+                "annual_fee": 150000,
+                "formatted_fee": "Rp 150.000 \/ tahun",
+                "badge": "Pilihan Populer",
+                "is_popular": true
+            },
+            {
+                "id": 2,
+                "name": "Anggota Luar Biasa (Pelaku Usaha & Korporasi)",
+                "slug": "anggota-luar-biasa",
+                "description": "Ditujukan bagi badan usaha perikanan (CV, PT, Koperasi), industri pengolahan, produsen pakan, importir, dan eksportir komoditas.",
+                "benefits": [
+                    "Seluruh manfaat paket Anggota Biasa untuk perwakilan manajemen usaha",
+                    "Profil perusahaan terverifikasi di direktori B2B & katalog mitra nasional IFAA",
+                    "Fasilitasi temu bisnis (business matching) dengan off-taker domestik dan pasar ekspor",
+                    "Advokasi kebijakan regulasi perikanan, perpajakan, dan karantina ikan",
+                    "Prioritas menjadi sponsor dan mitra utama dalam expo serta konferensi tahunan"
+                ],
+                "annual_fee": 1200000,
+                "formatted_fee": "Rp 1.200.000 \/ tahun",
+                "badge": "Pelaku Usaha",
+                "is_popular": false
+            },
+            {
+                "id": 3,
+                "name": "Anggota Kehormatan & Akademisi",
+                "slug": "anggota-kehormatan-akademisi",
+                "description": "Ditujukan bagi dosen, peneliti, mahasiswa perikanan, konsultan akuakultur, serta tokoh pemerhati kelestarian perikanan.",
+                "benefits": [
+                    "KTA digital keanggotaan ilmiah dan jejaring pakar akuakultur",
+                    "Akses basis data statistik riset lapangan dan komoditas perikanan nasional",
+                    "Peluang kolaborasi riset terapan bersama ratusan kelompok pembudidaya",
+                    "Akses jurnal, buletin riset perikanan berkala, dan diskon seminar internasional"
+                ],
+                "annual_fee": 75000,
+                "formatted_fee": "Rp 75.000 \/ tahun",
+                "badge": "Riset & Edukasi",
+                "is_popular": false
+            }
+        ],
+        "suggestedDpc": {
+            "id": 1,
+            "name": "DPC IFAA Kabupaten Bogor",
+            "address": "Jl. Raya Cikaret No. 24, Cibinong, Kabupaten Bogor",
+            "phone": "021-8790123",
+            "email": "dpc.bogor@ifaa.test",
+            "period": "2024-2029",
+            "regency_name": "Kabupaten Bogor"
+        },
+        "businessLocation": {
+            "regency_name": "Kabupaten Bogor",
+            "province_name": "Jawa Barat"
+        },
+        "cultivationTypes": [
+            "Kolam tanah",
+            "Kolam terpal",
+            "Kolam beton",
+            "Keramba Jaring Apung",
+            "Tambak",
+            "Bioflok",
+            "Penangkapan"
+        ],
+        "statementTemplate": "Dengan ini saya yang bertanda tangan di bawah ini:\nNama: Budi Pratama (Anggota)\nNama Usaha: Mina Sejahtera Aquaculture\nTanggal: 29 Oktober 2026\nKota: Kabupaten Bogor\n\nMenyatakan dengan sesungguhnya bahwa seluruh data, informasi, dan dokumen yang saya berikan dalam proses pendaftaran Indonesian Fisheries and Aquaculture Association (IFAA) adalah benar, akurat, dan sesuai dengan fakta yang sebenarnya. Apabila di kemudian hari ditemukan ketidakbenaran atas data tersebut, saya bersedia menerima segala konsekuensi hukum maupun sanksi organisasi sesuai ketentuan AD\/ART IFAA.\n\nSaya juga menyatakan berkomitmen penuh untuk:\n1. Mematuhi dan menjunjung tinggi Anggaran Dasar dan Anggaran Rumah Tangga (AD\/ART) IFAA serta seluruh peraturan organisasi yang berlaku.\n2. Berperan aktif dalam membangun ekosistem perikanan dan akuakultur nasional yang tangguh, modern, dan berkelanjutan.\n3. Menjaga nama baik, kehormatan, dan solidaritas seluruh anggota IFAA di tingkat nasional maupun internasional.\n4. Menyetujui pemrosesan data pribadi dan profil usaha saya demi keperluan administrasi, direktori keanggotaan, dan layanan asosiasi.",
+        "statementCity": "Kabupaten Bogor",
+        "statementDate": "29 Oktober 2026",
+        "missingItems": {
+            "Langkah 3 (Data Usaha)": [
+                "Wilayah alamat usaha lengkap"
+            ],
+            "Langkah 4 (Dokumen Persyaratan)": [
+                "Foto\/Scan KTP",
+                "Dokumen izin NIB",
+                "Foto tempat\/sarana usaha"
+            ],
+            "Langkah 6 (Komoditas)": [
+                "Minimal 1 data komoditas perikanan"
+            ],
+            "Langkah 7 (Keanggotaan)": [
+                "Pilihan paket keanggotaan",
+                "Alasan bergabung asosiasi"
+            ],
+            "Langkah 8 (Surat Pernyataan)": [
+                "Pernyataan data benar",
+                "Persetujuan AD\/ART",
+                "Persetujuan kebijakan privasi",
+                "Tanda tangan digital"
+            ]
+        },
+        "stepCompleteness": {
+            "step1": true,
+            "step2": true,
+            "step3": false,
+            "step4": false,
+            "step5": true,
+            "step6": false,
+            "step7": false,
+            "step8": false
+        },
+        "canSubmit": false
+    },
+    "url": "\/akun\/keanggotaan\/daftar\/informasi-akun",
+    "version": ""
+}

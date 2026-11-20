@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /akun/
+Disallow: /checkout/
+
+Sitemap: https://ifaa.or.id/sitemap.xml
