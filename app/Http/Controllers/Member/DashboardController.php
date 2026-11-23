@@ -69,7 +69,7 @@ class DashboardController extends Controller
                 'title' => $p->title,
                 'slug' => $p->slug,
                 'excerpt' => $p->excerpt,
-                'cover_image' => $p->cover,
+                'cover_image' => $p->coverUrl(),
                 'date' => $p->published_at?->format('d M Y') ?? '-',
             ]);
 

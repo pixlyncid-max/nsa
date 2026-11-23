@@ -52,6 +52,20 @@ class Post extends Model
         });
     }
 
+    public function coverUrl(): ?string
+    {
+        if (! is_string($this->cover) || trim($this->cover) === '') {
+            return null;
+        }
+
+        $cover = trim($this->cover);
+        if (str_starts_with($cover, 'http://') || str_starts_with($cover, 'https://') || str_starts_with($cover, '/')) {
+            return $cover;
+        }
+
+        return '/storage/'.ltrim($cover, '/');
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(PostCategory::class, 'category_id');

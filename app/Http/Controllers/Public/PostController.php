@@ -75,7 +75,7 @@ class PostController extends Controller
                 'slug' => $post->slug,
                 'excerpt' => $post->tr('excerpt', $locale),
                 'body' => $localizedBody,
-                'cover' => $post->cover,
+                'cover' => $post->coverUrl(),
                 'status' => $post->status,
                 'published_at' => $post->published_at,
                 'reading_time' => max(1, (int) ceil($wordCount / 200)),
@@ -163,7 +163,7 @@ class PostController extends Controller
                 'title' => $rel->tr('title', $locale),
                 'slug' => $rel->slug,
                 'excerpt' => $rel->tr('excerpt', $locale),
-                'cover' => $rel->cover,
+                'cover' => $rel->coverUrl(),
                 'published_at' => $rel->published_at,
                 'category' => $rel->category ? [
                     'id' => $rel->category->id,
@@ -187,7 +187,7 @@ class PostController extends Controller
                 'slug' => $post->slug,
                 'excerpt' => $post->tr('excerpt', $locale),
                 'body' => $localizedBody,
-                'cover' => $post->cover,
+                'cover' => $post->coverUrl(),
                 'published_at' => $post->published_at?->translatedFormat('d F Y') ?? '',
                 'category' => $post->category ? [
                     'id' => $post->category->id,

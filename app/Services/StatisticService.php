@@ -221,7 +221,7 @@ class StatisticService
                     'title' => $post->tr('title', $activeLocale),
                     'slug' => $post->slug,
                     'excerpt' => $post->tr('excerpt', $activeLocale),
-                    'cover' => $post->cover,
+                    'cover' => $post->coverUrl(),
                     'category' => $post->category?->tr('name', $activeLocale) ?? 'Warta NSA',
                     'published_at' => $post->published_at ? $post->published_at->translatedFormat('d F Y') : null,
                 ];
