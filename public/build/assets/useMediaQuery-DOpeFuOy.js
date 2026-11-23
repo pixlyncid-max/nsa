@@ -1,1 +1,0 @@
-import{r as n}from"./vendor-core-Dc7isDJl.js";function a(e){return n.useSyncExternalStore(r=>{const t=window.matchMedia(e);return t.addEventListener("change",r),()=>t.removeEventListener("change",r)},()=>window.matchMedia(e).matches,()=>!1)}function o(){return a("(prefers-reduced-motion: reduce)")}export{a,o as u};
