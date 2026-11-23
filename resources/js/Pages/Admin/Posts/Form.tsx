@@ -2,6 +2,7 @@ import AdminLayout from '@/Layouts/AdminLayout';
 import Card from '@/Components/ui/Card';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
+import RichTextEditor from '@/Components/ui/RichTextEditor';
 import Textarea from '@/Components/ui/Textarea';
 import { router, Link } from '@inertiajs/react';
 import { useState } from 'react';
@@ -60,6 +61,11 @@ export default function PostForm({ post, categories }: PostFormProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        const plainBody = body.replace(/<[^>]+>/g, '').trim();
+        if (!plainBody) {
+            setErrors({ body: 'Isi berita / artikel wajib diisi.' });
+            return;
+        }
         setSubmitting(true);
         setErrors({});
 
@@ -128,20 +134,15 @@ export default function PostForm({ post, categories }: PostFormProps) {
                             />
 
                             <div>
-                                <label className="mb-1 block text-xs font-semibold text-ink">
-                                    Konten Lengkap (Format HTML / Rich Text) <span className="text-danger">*</span>
+                                <label className="mb-1.5 block text-xs font-semibold text-ink">
+                                    Isi Berita / Artikel <span className="text-danger">*</span>
                                 </label>
-                                <textarea
-                                    className="w-full rounded-control border border-line bg-white p-3 font-mono text-sm text-ink focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/15"
-                                    rows={14}
-                                    placeholder="<p>Tuliskan isi artikel lengkap di sini...</p><h2>Sub-judul</h2><p>Paragraf penjelasan...</p>"
+                                <RichTextEditor
                                     value={body}
-                                    onChange={(e) => setBody(e.target.value)}
-                                    required
+                                    onChange={setBody}
+                                    error={errors.body}
+                                    placeholder="Mulai ketik isi berita atau artikel di sini... (langsung ketik biasa tanpa kode HTML)"
                                 />
-                                {errors.body && (
-                                    <p className="mt-1 text-xs text-danger">{errors.body}</p>
-                                )}
                             </div>
                         </Card>
                     </div>
