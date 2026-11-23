@@ -71,7 +71,7 @@ class SiteMediaService
             foreach ($settingKeys as $slotKey => $settingKey) {
                 $path = $stored[$settingKey] ?? null;
                 $result[$slotKey] = is_string($path) && trim($path) !== ''
-                    ? Storage::url($path)
+                    ? '/storage/'.ltrim($path, '/')
                     : null;
             }
 
@@ -141,7 +141,7 @@ class SiteMediaService
 
         $this->clearCache();
 
-        return Storage::url($newPath);
+        return '/storage/'.ltrim($newPath, '/');
     }
 
     /**
