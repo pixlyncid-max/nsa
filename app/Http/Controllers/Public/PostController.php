@@ -27,8 +27,7 @@ class PostController extends Controller
 
         $query = Post::query()
             ->where('type', $postType)
-            ->where('status', 'published')
-            ->where('published_at', '<=', now())
+            ->visiblePublicly()
             ->withLocale($locale)
             ->with([
                 'category' => fn ($q) => $q->select(['id', 'name', 'slug'])->withLocale($locale),
@@ -94,8 +93,7 @@ class PostController extends Controller
 
         $categories = PostCategory::whereHas('posts', function ($q) use ($postType) {
             $q->where('type', $postType)
-                ->where('status', 'published')
-                ->where('published_at', '<=', now());
+                ->visiblePublicly();
         })
             ->withLocale($locale)
             ->get(['id', 'name', 'slug'])
@@ -137,8 +135,7 @@ class PostController extends Controller
         // Jika bukan admin/staff, hanya postingan published yang bisa dibuka
         $user = $request->user();
         if (! $user || ! $user->isStaff()) {
-            $postQuery->where('status', 'published')
-                ->where('published_at', '<=', now());
+            $postQuery->visiblePublicly();
         }
 
         $post = $postQuery->firstOrFail();
@@ -150,8 +147,7 @@ class PostController extends Controller
         // Artikel / Berita Terkait (kategori sama, maks 3 item)
         $relatedPosts = Post::query()
             ->where('type', $postType)
-            ->where('status', 'published')
-            ->where('published_at', '<=', now())
+            ->visiblePublicly()
             ->where('id', '!=', $post->id)
             ->when($post->category_id, fn ($q) => $q->where('category_id', $post->category_id))
             ->latest('published_at')

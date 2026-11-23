@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\PostType;
 use App\Models\Concerns\HasAutoTranslations;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,6 +38,18 @@ class Post extends Model
             'type' => PostType::class,
             'published_at' => 'datetime',
         ];
+    }
+
+    public function scopeVisiblePublicly(Builder $query): Builder
+    {
+        return $query->where(function (Builder $q) {
+            $q->where('status', 'published')
+                ->orWhere(function (Builder $scheduled) {
+                    $scheduled->where('status', 'scheduled')
+                        ->whereNotNull('published_at')
+                        ->where('published_at', '<=', now());
+                });
+        });
     }
 
     public function category(): BelongsTo

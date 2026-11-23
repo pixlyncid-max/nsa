@@ -33,8 +33,7 @@ class SitemapController extends Controller
 
         // 2. Artikel & Berita Published
         $posts = Post::query()
-            ->where('status', 'published')
-            ->where('published_at', '<=', now())
+            ->visiblePublicly()
             ->get(['slug', 'type', 'updated_at']);
 
         // 3. Produk Aktif
