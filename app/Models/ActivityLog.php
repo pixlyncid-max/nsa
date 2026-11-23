@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class ActivityLog extends Model
 {
@@ -32,8 +33,8 @@ class ActivityLog extends Model
     {
         return static::create([
             'user_id' => $userId ?? auth()->id(),
-            'action' => $action,
-            'subject' => $subject,
+            'action' => Str::limit($action, 50, ''),
+            'subject' => $subject !== null ? Str::limit($subject, 97, '...') : null,
             'meta' => $meta,
             'created_at' => now(),
         ]);
