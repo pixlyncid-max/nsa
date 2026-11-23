@@ -129,7 +129,7 @@ class PostController extends Controller
                 'category_id' => $post->category_id,
                 'excerpt' => $post->excerpt,
                 'body' => $post->body,
-                'cover_url' => $post->cover ? Storage::url($post->cover) : null,
+                'cover_url' => $post->coverUrl(),
                 'status' => $post->status,
                 'published_at' => $post->published_at?->format('Y-m-d\TH:i'),
             ],

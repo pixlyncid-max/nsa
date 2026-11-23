@@ -50,10 +50,12 @@ Route::prefix('anggota')->name('members.')->group(function () {
 // Modul Produk & Kategori
 // ========================================================
 Route::resource('kategori-produk', ProductCategoryController::class)
+    ->parameters(['kategori-produk' => 'category'])
     ->names('product-categories')
     ->except(['create', 'show', 'edit']);
 
 Route::resource('produk', ProductController::class)
+    ->parameters(['produk' => 'product'])
     ->names('products');
 
 // ========================================================
@@ -72,16 +74,19 @@ Route::prefix('pesanan')->name('orders.')->group(function () {
 // ========================================================
 Route::prefix('master-keanggotaan')->name('membership-master.')->group(function () {
     Route::resource('kategori', MembershipCategoryController::class)
+        ->parameters(['kategori' => 'category'])
         ->names('categories')
         ->except(['create', 'show', 'edit']);
 
     Route::resource('jenis', MembershipTypeController::class)
+        ->parameters(['jenis' => 'type'])
         ->names('types')
         ->except(['create', 'show', 'edit']);
 
     // Biaya & Tarif Keanggotaan (Khusus Superadmin)
     Route::middleware(['role:superadmin'])->group(function () {
         Route::resource('biaya', MembershipFeeItemController::class)
+            ->parameters(['biaya' => 'feeItem'])
             ->names('fees')
             ->except(['create', 'show', 'edit']);
     });
@@ -97,8 +102,10 @@ Route::resource('programs', ProgramController::class)->names('programs');
 // Modul Berita & Artikel
 // ========================================================
 Route::resource('pos', PostController::class)
+    ->parameters(['pos' => 'post'])
     ->names('posts');
 Route::resource('artikel', PostController::class)
+    ->parameters(['artikel' => 'post'])
     ->names('articles');
 
 // ========================================================
@@ -132,10 +139,12 @@ Route::prefix('organisasi')->name('organization.')->group(function () {
 // Modul Statistik & Kategori Ikan
 // ========================================================
 Route::resource('statistik', StatisticController::class)
+    ->parameters(['statistik' => 'statistic'])
     ->names('statistics')
     ->only(['index', 'store', 'update', 'destroy']);
 
 Route::resource('kategori-ikan', FishCategoryController::class)
+    ->parameters(['kategori-ikan' => 'fishCategory'])
     ->names('fish-categories')
     ->only(['index', 'store', 'update', 'destroy']);
 
@@ -149,6 +158,7 @@ Route::prefix('halaman')->name('pages.')->group(function () {
 });
 
 Route::resource('mitra', PartnerController::class)
+    ->parameters(['mitra' => 'partner'])
     ->names('partners')
     ->only(['index', 'store', 'update', 'destroy']);
 
