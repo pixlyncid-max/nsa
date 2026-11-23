@@ -10,9 +10,6 @@ import {
     ArrowLeft,
     UploadCloud,
     Save,
-    Calendar,
-    Newspaper,
-    FileText,
 } from 'lucide-react';
 
 interface CategoryItem {
@@ -63,7 +60,7 @@ export default function PostForm({ post, categories }: PostFormProps) {
         e.preventDefault();
         const plainBody = body.replace(/<[^>]+>/g, '').trim();
         if (!plainBody) {
-            setErrors({ body: 'Isi berita / artikel wajib diisi.' });
+            setErrors({ body: 'Isi berita atau artikel wajib diisi.' });
             return;
         }
         setSubmitting(true);
@@ -113,12 +110,12 @@ export default function PostForm({ post, categories }: PostFormProps) {
                 </div>
 
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                    {/* Left 2 Cols: Content */}
+                    {/* Kolom Kiri (2 Kolom): Isi Konten */}
                     <div className="space-y-6 lg:col-span-2">
                         <Card className="p-6 space-y-4">
                             <Input
                                 label="Judul Publikasi"
-                                placeholder="Tuliskan judul yang menarik dan deskriptif..."
+                                placeholder="Tuliskan judul berita atau artikel..."
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 error={errors.title}
@@ -126,40 +123,49 @@ export default function PostForm({ post, categories }: PostFormProps) {
                             />
 
                             <Textarea
-                                label="Ringkasan / Cuplikan (Excerpt)"
-                                placeholder="1-2 kalimat pengantar untuk ditampilkan di kartu artikel & Open Graph SEO..."
+                                label="Ringkasan Singkat (Opsional)"
+                                placeholder="Tulis 1-2 kalimat pengantar singkat untuk kartu daftar artikel..."
                                 value={excerpt}
                                 onChange={(e) => setExcerpt(e.target.value)}
                                 rows={2}
                             />
 
                             <div>
-                                <label className="mb-1.5 block text-xs font-semibold text-ink">
+                                <label
+                                    htmlFor="post-body-editor"
+                                    className="mb-1.5 block text-xs font-semibold text-ink"
+                                >
                                     Isi Berita / Artikel <span className="text-danger">*</span>
                                 </label>
                                 <RichTextEditor
+                                    id="post-body-editor"
+                                    ariaLabel="Isi Berita atau Artikel"
                                     value={body}
                                     onChange={setBody}
                                     error={errors.body}
-                                    placeholder="Mulai ketik isi berita atau artikel di sini... (langsung ketik biasa tanpa kode HTML)"
+                                    placeholder="Tulis isi berita atau artikel lengkap di sini. Anda bisa langsung mengetik atau menempelkan tulisan dari Microsoft Word..."
                                 />
                             </div>
                         </Card>
                     </div>
 
-                    {/* Right 1 Col: Publishing Meta */}
+                    {/* Kolom Kanan (1 Kolom): Pengaturan Publikasi */}
                     <div className="space-y-6">
                         <Card className="p-6 space-y-4">
-                            <h3 className="font-display text-base font-bold text-navy">
+                            <h2 className="font-display text-base font-bold text-navy">
                                 Pengaturan Publikasi
-                            </h3>
+                            </h2>
 
                             <div>
-                                <label className="mb-1 block text-xs font-semibold text-ink">
+                                <label
+                                    htmlFor="post-type-select"
+                                    className="mb-1 block text-xs font-semibold text-ink"
+                                >
                                     Tipe Konten
                                 </label>
                                 <select
-                                    className="h-11 w-full rounded-control border border-line bg-white px-3 text-sm text-ink focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/15"
+                                    id="post-type-select"
+                                    className="h-11 w-full cursor-pointer rounded-control border border-line bg-white px-3 text-sm text-ink focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/15"
                                     value={type}
                                     onChange={(e) => setType(e.target.value)}
                                 >
@@ -169,11 +175,15 @@ export default function PostForm({ post, categories }: PostFormProps) {
                             </div>
 
                             <div>
-                                <label className="mb-1 block text-xs font-semibold text-ink">
+                                <label
+                                    htmlFor="post-category-select"
+                                    className="mb-1 block text-xs font-semibold text-ink"
+                                >
                                     Kategori
                                 </label>
                                 <select
-                                    className="h-11 w-full rounded-control border border-line bg-white px-3 text-sm text-ink focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/15"
+                                    id="post-category-select"
+                                    className="h-11 w-full cursor-pointer rounded-control border border-line bg-white px-3 text-sm text-ink focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/15"
                                     value={categoryId}
                                     onChange={(e) => setCategoryId(e.target.value)}
                                 >
@@ -187,17 +197,21 @@ export default function PostForm({ post, categories }: PostFormProps) {
                             </div>
 
                             <div>
-                                <label className="mb-1 block text-xs font-semibold text-ink">
+                                <label
+                                    htmlFor="post-status-select"
+                                    className="mb-1 block text-xs font-semibold text-ink"
+                                >
                                     Status Publikasi
                                 </label>
                                 <select
-                                    className="h-11 w-full rounded-control border border-line bg-white px-3 text-sm text-ink focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/15"
+                                    id="post-status-select"
+                                    className="h-11 w-full cursor-pointer rounded-control border border-line bg-white px-3 text-sm text-ink focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/15"
                                     value={status}
                                     onChange={(e) => setStatus(e.target.value)}
                                 >
-                                    <option value="published">Langsung Terbit (Published)</option>
-                                    <option value="draft">Simpan Draf (Draft)</option>
-                                    <option value="scheduled">Jadwalkan Terbit (Scheduled)</option>
+                                    <option value="published">Langsung Terbit</option>
+                                    <option value="draft">Simpan sebagai Draf</option>
+                                    <option value="scheduled">Jadwalkan Tanggal Terbit</option>
                                 </select>
                             </div>
 
@@ -211,29 +225,38 @@ export default function PostForm({ post, categories }: PostFormProps) {
                             )}
 
                             <div>
-                                <label className="mb-1 block text-xs font-semibold text-ink">
-                                    Foto Sampul (Cover Image)
+                                <label
+                                    htmlFor="post-cover-upload"
+                                    className="mb-1 block text-xs font-semibold text-ink"
+                                >
+                                    Foto Sampul
                                 </label>
                                 {coverPreview && (
                                     <img
                                         src={coverPreview}
-                                        alt="Sampul"
+                                        alt="Pratinjau foto sampul artikel"
+                                        width={400}
+                                        height={144}
                                         className="mb-2 h-36 w-full rounded-lg object-cover border border-line"
                                     />
                                 )}
-                                <label className="flex h-20 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-line bg-mist/50 transition hover:border-ocean hover:bg-mist">
-                                    <UploadCloud className="h-5 w-5 text-slate" />
+                                <label
+                                    htmlFor="post-cover-upload"
+                                    className="flex h-20 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-line bg-mist/50 transition hover:border-ocean hover:bg-mist"
+                                >
+                                    <UploadCloud className="h-5 w-5 text-slate" aria-hidden="true" />
                                     <span className="mt-1 text-xs font-semibold text-slate">
-                                        Pilih Berkas Sampul
+                                        Pilih Foto Sampul
                                     </span>
                                     <input
+                                        id="post-cover-upload"
                                         type="file"
                                         accept="image/*"
                                         className="hidden"
                                         onChange={handleCoverChange}
                                     />
                                 </label>
-                                <p className="mt-1 text-[11px] text-slate">Maksimal 5MB (JPG/PNG/WebP)</p>
+                                <p className="mt-1 text-[11px] text-slate">Maksimal 5MB (JPG, PNG, atau WebP)</p>
                             </div>
 
                             <div className="pt-4 border-t border-line">
@@ -244,7 +267,7 @@ export default function PostForm({ post, categories }: PostFormProps) {
                                     size="lg"
                                     loading={submitting}
                                 >
-                                    <Save className="mr-2 h-4 w-4" />
+                                    <Save className="mr-2 h-4 w-4" aria-hidden="true" />
                                     {isEdit ? 'Simpan Perubahan' : 'Terbitkan Sekarang'}
                                 </Button>
                             </div>

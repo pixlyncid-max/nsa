@@ -296,4 +296,29 @@ class AdminCmsTest extends TestCase
         $superadminHome = $this->actingAs($this->superadmin)->get('/');
         $superadminHome->assertStatus(200);
     }
+
+    public function test_admin_can_open_post_form_and_create_article(): void
+    {
+        $createPage = $this->actingAs($this->admin)->get('/admin/pos/create');
+        $createPage->assertStatus(200);
+        $createPage->assertInertia(fn ($page) => $page
+            ->component('Admin/Posts/Form')
+            ->where('post', null)
+        );
+
+        $storeResponse = $this->actingAs($this->admin)->post('/admin/pos', [
+            'title' => 'Panduan Kualitas Air Kolam Budidaya',
+            'type' => 'article',
+            'excerpt' => 'Ringkasan panduan menjaga kualitas air kolam bagi pembudidaya pemula.',
+            'body' => '<p>Menjaga suhu dan pH air kolam sangat penting bagi kesehatan ikan.</p><h2>Parameter Utama</h2><p>Periksa kadar oksigen terlarut setiap pagi.</p>',
+            'status' => 'published',
+        ]);
+
+        $storeResponse->assertRedirect(route('admin.posts.index'));
+        $this->assertDatabaseHas('posts', [
+            'title' => 'Panduan Kualitas Air Kolam Budidaya',
+            'type' => 'article',
+            'status' => 'published',
+        ]);
+    }
 }

@@ -2,6 +2,7 @@ import Button from '@/Components/ui/Button';
 import Card from '@/Components/ui/Card';
 import Checkbox from '@/Components/ui/Checkbox';
 import Input from '@/Components/ui/Input';
+import RichTextEditor from '@/Components/ui/RichTextEditor';
 import Select from '@/Components/ui/Select';
 import Textarea from '@/Components/ui/Textarea';
 import AdminLayout from '@/Layouts/AdminLayout';
@@ -185,15 +186,23 @@ export default function ProgramForm({
                             hint="Maksimal 250 karakter untuk keterbacaan yang optimal."
                         />
 
-                        <Textarea
-                            label="Badan Konten Lengkap (Deskripsi / Silabus / Rincian)"
-                            rows={8}
-                            placeholder="Penjelasan lengkap mengenai materi, narasumber, lokasi, persyaratan peserta, atau tag HTML."
-                            value={form.data.body}
-                            onChange={(e) => form.setData('body', e.target.value)}
-                            error={form.errors.body}
-                            hint="Dapat memuat teks biasa atau paragraf HTML."
-                        />
+                        <div>
+                            <label
+                                htmlFor="program-body-editor"
+                                className="mb-1.5 block text-xs font-semibold text-ink"
+                            >
+                                Rincian Lengkap Program (Deskripsi / Materi / Persyaratan)
+                            </label>
+                            <RichTextEditor
+                                id="program-body-editor"
+                                ariaLabel="Rincian Lengkap Program"
+                                value={form.data.body}
+                                onChange={(val) => form.setData('body', val)}
+                                error={form.errors.body}
+                                minHeightClass="min-h-[240px]"
+                                placeholder="Tuliskan penjelasan lengkap mengenai materi kegiatan, narasumber, lokasi, dan persyaratan peserta..."
+                            />
+                        </div>
                     </Card>
 
                     {/* 2. Jadwal & Gambar Cover */}

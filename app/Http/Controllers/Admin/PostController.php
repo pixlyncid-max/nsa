@@ -90,8 +90,8 @@ class PostController extends Controller
         }
 
         $publishedAt = match ($validated['status']) {
-            'published' => $validated['published_at'] ? $validated['published_at'] : now(),
-            'scheduled' => $validated['published_at'] ?? now()->addDay(),
+            'published' => ! empty($validated['published_at']) ? $validated['published_at'] : now(),
+            'scheduled' => ! empty($validated['published_at']) ? $validated['published_at'] : now()->addDay(),
             default => null,
         };
 
@@ -159,8 +159,8 @@ class PostController extends Controller
         }
 
         $publishedAt = match ($validated['status']) {
-            'published' => $validated['published_at'] ? $validated['published_at'] : ($post->published_at ?? now()),
-            'scheduled' => $validated['published_at'] ?? now()->addDay(),
+            'published' => ! empty($validated['published_at']) ? $validated['published_at'] : ($post->published_at ?? now()),
+            'scheduled' => ! empty($validated['published_at']) ? $validated['published_at'] : now()->addDay(),
             default => null,
         };
 
