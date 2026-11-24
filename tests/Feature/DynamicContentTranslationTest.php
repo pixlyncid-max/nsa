@@ -23,6 +23,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Province;
 use App\Models\Regency;
+use App\Models\Setting;
 use App\Models\User;
 use App\Services\StatisticService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -242,6 +243,8 @@ class DynamicContentTranslationTest extends TestCase
             );
 
         // Partner: nama mitra tetap, jenis mitra berubah
+        Setting::set('partnership_page_enabled', '1');
+        \App\Models\Setting::set('partnership_page_enabled', '1');
         $this->get('/en/kemitraan')
             ->assertOk()
             ->assertInertia(fn ($page) => $page

@@ -24,6 +24,7 @@ interface PostFormProps {
         slug: string;
         type: string;
         category_id: number | null;
+        publisher_name?: string | null;
         excerpt: string | null;
         body: string;
         cover_url: string | null;
@@ -39,6 +40,7 @@ export default function PostForm({ post, categories }: PostFormProps) {
     const [title, setTitle] = useState(post?.title || '');
     const [type, setType] = useState(post?.type || 'article');
     const [categoryId, setCategoryId] = useState(post?.category_id ? String(post.category_id) : '');
+    const [publisherName, setPublisherName] = useState(post?.publisher_name || '');
     const [excerpt, setExcerpt] = useState(post?.excerpt || '');
     const [body, setBody] = useState(post?.body || '');
     const [status, setStatus] = useState(post?.status || 'published');
@@ -70,6 +72,7 @@ export default function PostForm({ post, categories }: PostFormProps) {
         formData.append('title', title);
         formData.append('type', type);
         if (categoryId) formData.append('category_id', categoryId);
+        formData.append('publisher_name', publisherName.trim());
         if (excerpt) formData.append('excerpt', excerpt);
         formData.append('body', body);
         formData.append('status', status);
@@ -195,6 +198,14 @@ export default function PostForm({ post, categories }: PostFormProps) {
                                     ))}
                                 </select>
                             </div>
+
+                            <Input
+                                label="Nama Penerbit / Penulis"
+                                placeholder="Contoh: Tim Redaksi NSA, Budi Santoso..."
+                                value={publisherName}
+                                onChange={(e) => setPublisherName(e.target.value)}
+                                error={errors.publisher_name}
+                            />
 
                             <div>
                                 <label

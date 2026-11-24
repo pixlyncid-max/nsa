@@ -23,6 +23,7 @@ class Post extends Model
         'type',
         'category_id',
         'author_id',
+        'publisher_name',
         'title',
         'slug',
         'excerpt',

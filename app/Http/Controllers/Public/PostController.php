@@ -84,9 +84,9 @@ class PostController extends Controller
                     'name' => $post->category->tr('name', $locale),
                     'slug' => $post->category->slug,
                 ] : null,
-                'author' => $post->author ? [
-                    'id' => $post->author->id,
-                    'name' => $post->author->name,
+                'author' => $post->publisher_name ? [
+                    'id' => 0,
+                    'name' => $post->publisher_name,
                 ] : null,
             ];
         });
@@ -170,9 +170,9 @@ class PostController extends Controller
                     'name' => $rel->category->tr('name', $locale),
                     'slug' => $rel->category->slug,
                 ] : null,
-                'author' => $rel->author ? [
-                    'id' => $rel->author->id,
-                    'name' => $rel->author->name,
+                'author' => $rel->publisher_name ? [
+                    'id' => 0,
+                    'name' => $rel->publisher_name,
                 ] : null,
             ]);
 
@@ -194,7 +194,10 @@ class PostController extends Controller
                     'name' => $post->category->tr('name', $locale),
                     'slug' => $post->category->slug,
                 ] : null,
-                'author' => $post->author,
+                'author' => $post->publisher_name ? [
+                    'id' => 0,
+                    'name' => $post->publisher_name,
+                ] : null,
                 'reading_time' => $readingTime,
             ],
             'relatedPosts' => $relatedPosts,

@@ -298,21 +298,18 @@ export default function Show({
                     </h1>
 
                     <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-y border-line py-4">
-                        <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-mist font-display text-sm font-bold text-ocean">
-                                {post.author?.name
-                                    ? post.author.name.charAt(0)
-                                    : 'N'}
-                            </div>
-                            <div>
-                                <div className="text-xs font-bold text-navy">
-                                    {post.author?.name || 'Tim Redaksi NSA'}
+                        {post.author?.name ? (
+                            <div className="flex items-center gap-3">
+                                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-mist font-display text-sm font-bold text-ocean">
+                                    {post.author.name.charAt(0).toUpperCase()}
                                 </div>
-                                <div className="text-[11px] text-slate">
-                                    Divisi Informasi &amp; Publikasi Asosiasi
+                                <div className="text-sm font-bold text-navy">
+                                    {post.author.name}
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div />
+                        )}
 
                         {/* Bagikan ringkas di mobile/tablet */}
                         <div className="flex items-center gap-2 lg:hidden">
