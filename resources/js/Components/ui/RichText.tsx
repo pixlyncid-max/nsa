@@ -119,16 +119,19 @@ export default function RichText({ content, className = '' }: RichTextProps) {
 
     return (
         <div
-            className={`prose prose-slate max-w-none font-sans leading-relaxed text-ink
-                prose-headings:font-display prose-headings:font-bold prose-headings:text-navy prose-headings:scroll-mt-28
-                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-                prose-h3:text-xl prose-h3:mt-7 prose-h3:mb-3
-                prose-p:text-base prose-p:leading-[1.78] prose-p:mb-5
-                prose-a:text-ocean prose-a:font-semibold prose-a:underline hover:prose-a:text-navy
-                prose-blockquote:border-l-4 prose-blockquote:border-aqua prose-blockquote:bg-mist/50 prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-control prose-blockquote:italic prose-blockquote:text-navy prose-blockquote:not-italic
-                prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-1.5 prose-ul:mb-5
-                prose-ol:list-decimal prose-ol:pl-6 prose-ol:space-y-1.5 prose-ol:mb-5
-                prose-img:aspect-[16/9] prose-img:w-full prose-img:object-cover prose-img:rounded-card prose-img:shadow-soft prose-img:my-7
+            className={`max-w-none font-sans text-base leading-[1.85] text-ink text-justify
+                [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:leading-snug [&_h2]:text-navy [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-left [&_h2]:scroll-mt-28 [&_h2:first-child]:mt-0
+                [&_h3]:font-display [&_h3]:text-lg [&_h3]:font-bold [&_h3]:leading-snug [&_h3]:text-navy [&_h3]:mt-7 [&_h3]:mb-3 [&_h3]:text-left [&_h3]:scroll-mt-28 [&_h3:first-child]:mt-0
+                [&_h4]:font-display [&_h4]:text-base [&_h4]:font-bold [&_h4]:text-navy [&_h4]:mt-6 [&_h4]:mb-2 [&_h4]:text-left
+                [&_p]:text-base [&_p]:leading-[1.85] [&_p]:mb-5 [&_p]:text-justify [&_p:last-child]:mb-0
+                [&_div]:mb-4 [&_div]:text-justify [&_div:last-child]:mb-0
+                [&_a]:text-ocean [&_a]:font-semibold [&_a]:underline hover:[&_a]:text-navy
+                [&_strong]:font-bold [&_strong]:text-navy [&_b]:font-bold [&_b]:text-navy
+                [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-aqua [&_blockquote]:bg-mist/50 [&_blockquote]:py-3.5 [&_blockquote]:px-5 [&_blockquote]:rounded-r-control [&_blockquote]:italic [&_blockquote]:text-navy [&_blockquote]:text-justify
+                [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:mb-5
+                [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:space-y-2 [&_ol]:mb-5
+                [&_li]:text-base [&_li]:leading-[1.8] [&_li]:text-justify
+                [&_img]:aspect-[16/9] [&_img]:w-full [&_img]:object-cover [&_img]:rounded-card [&_img]:shadow-soft [&_img]:my-7
                 ${className}`}
             dangerouslySetInnerHTML={{ __html: html }}
         />

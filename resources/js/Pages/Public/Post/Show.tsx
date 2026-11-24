@@ -257,7 +257,22 @@ export default function Show({
                             Kembali ke Indeks {typeLabel}
                         </Link>
                     </div>
+                </Container>
 
+                {/* Foto Sampul Artikel di Atas Judul */}
+                {post.cover ? (
+                    <div className="mx-auto max-w-5xl px-0 sm:px-6">
+                        <div className="aspect-[16/9] max-h-[520px] w-full overflow-hidden bg-mist sm:rounded-card sm:border sm:border-line sm:shadow-soft">
+                            <img
+                                src={post.cover}
+                                alt={post.title}
+                                className="h-full w-full object-cover"
+                            />
+                        </div>
+                    </div>
+                ) : null}
+
+                <Container className={cx('max-w-4xl', post.cover ? 'mt-8 sm:mt-10' : '')}>
                     <div className="flex flex-wrap items-center gap-3 text-xs text-slate">
                         {post.category ? (
                             <Link
@@ -278,7 +293,7 @@ export default function Show({
                         </span>
                     </div>
 
-                    <h1 className="mt-4 font-display text-3xl font-extrabold leading-[1.1] tracking-tight text-navy sm:text-4xl lg:text-5xl">
+                    <h1 className="mt-4 font-display text-3xl font-extrabold leading-[1.15] tracking-tight text-navy sm:text-4xl lg:text-5xl">
                         {post.title}
                     </h1>
 
@@ -323,19 +338,6 @@ export default function Show({
                         </div>
                     </div>
                 </Container>
-
-                {/* Foto Lebar Menembus Tepi */}
-                {post.cover ? (
-                    <div className="mx-auto mt-8 max-w-6xl px-0 sm:px-6">
-                        <div className="aspect-[16/9] max-h-[520px] w-full overflow-hidden bg-mist sm:rounded-card sm:border sm:border-line sm:shadow-soft">
-                            <img
-                                src={post.cover}
-                                alt={post.title}
-                                className="h-full w-full object-cover"
-                            />
-                        </div>
-                    </div>
-                ) : null}
 
                 {/* Area Baca: Kiri Daftar Isi Menempel | Tengah Kolom 68ch | Kanan Rel Bagikan Menempel */}
                 <Container className="mt-10 sm:mt-14">
@@ -402,7 +404,7 @@ export default function Show({
                         {/* Tengah (7 kolom): Kolom Baca 68 Karakter */}
                         <div className="mx-auto w-full max-w-[68ch] lg:col-span-7">
                             {post.excerpt ? (
-                                <blockquote className="mb-8 rounded-r-control border-l-4 border-aqua bg-mist/45 px-5 py-4 font-sans text-base font-medium italic leading-relaxed text-navy sm:text-lg">
+                                <blockquote className="mb-8 rounded-r-control border-l-4 border-aqua bg-mist/45 px-5 py-4 text-justify font-sans text-base font-medium italic leading-relaxed text-navy sm:text-lg">
                                     &ldquo;{post.excerpt}&rdquo;
                                 </blockquote>
                             ) : null}
