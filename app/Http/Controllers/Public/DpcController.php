@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Dpc;
 use App\Models\Province;
 use App\Models\Regency;
+use App\Support\PublicMediaUrl;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -112,7 +113,7 @@ class DpcController extends Controller
                         'dpc_id' => $member->dpc_id,
                         'name' => $member->name,
                         'position' => $member->tr('position', $locale),
-                        'photo' => $member->photo,
+                        'photo' => PublicMediaUrl::resolve($member->photo),
                         'order' => $member->order,
                     ])->values(),
                 ];

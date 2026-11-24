@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\Dpw;
 use App\Models\Province;
+use App\Support\PublicMediaUrl;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -67,7 +68,7 @@ class DpwController extends Controller
                         'dpw_id' => $member->dpw_id,
                         'name' => $member->name,
                         'position' => $member->tr('position', $locale),
-                        'photo' => $member->photo,
+                        'photo' => PublicMediaUrl::resolve($member->photo),
                         'order' => $member->order,
                     ])->values(),
                 ];

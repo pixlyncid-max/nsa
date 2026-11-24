@@ -71,7 +71,7 @@ class ProductController extends Controller
                 'category_name' => $p->category?->tr('name', $locale) ?? ($locale === 'en' ? 'Product' : 'Produk'),
                 'category_slug' => $p->category?->slug,
                 'group' => $p->category?->group ?? $p->category?->parent?->group,
-                'image' => $p->images->first()?->path ?? null,
+                'image' => $p->images->first()?->url(),
             ];
         });
 
@@ -182,7 +182,7 @@ class ProductController extends Controller
             'group' => $product->category?->group ?? $product->category?->parent?->group,
             'images' => $product->images->map(fn ($img) => [
                 'id' => $img->id,
-                'path' => $img->path,
+                'path' => $img->url(),
             ]),
         ];
 
@@ -208,7 +208,7 @@ class ProductController extends Controller
                     'is_member_price_applied' => $p->isMemberPriceApplied($user),
                     'category_name' => $p->category?->tr('name', $locale),
                     'location' => $p->location,
-                    'image' => $p->images->first()?->path ?? null,
+                    'image' => $p->images->first()?->url(),
                 ];
             });
 

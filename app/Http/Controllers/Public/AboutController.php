@@ -7,6 +7,7 @@ use App\Models\DppMember;
 use App\Models\Page;
 use App\Models\Program;
 use App\Support\Brand;
+use App\Support\PublicMediaUrl;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -101,7 +102,7 @@ class AboutController extends Controller
                 'id' => $member->id,
                 'name' => $member->name,
                 'position' => $member->tr('position', $locale),
-                'photo' => $member->photo,
+                'photo' => PublicMediaUrl::resolve($member->photo),
                 'period' => $member->period,
                 'bio' => $member->tr('bio', $locale),
             ]);

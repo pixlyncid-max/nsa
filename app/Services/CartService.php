@@ -98,7 +98,7 @@ class CartService
                 'slug' => $product->slug,
                 'type' => $product->type->value,
                 'category_name' => $product->category?->name ?? 'Produk',
-                'image' => $product->images->first()?->path ?? null,
+                'image' => $product->images->first()?->url(),
                 'qty' => $item->qty,
                 'options' => $item->options ?? [],
                 'unit_price' => $effectivePrice,

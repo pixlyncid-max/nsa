@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Province;
 use App\Models\StatisticSnapshot;
 use App\Models\User;
+use App\Support\PublicMediaUrl;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
@@ -245,7 +246,7 @@ class StatisticService
                     'location' => $prod->location,
                     'type' => $prod->type->value,
                     'category' => $prod->category?->tr('name', $activeLocale),
-                    'image' => $prod->images->first()?->image_url ?? null,
+                    'image' => $prod->images->first()?->url(),
                 ];
             });
 
@@ -257,7 +258,7 @@ class StatisticService
                 'id' => $partner->id,
                 'name' => $partner->name,
                 'type' => $partner->tr('type', $activeLocale),
-                'logo' => $partner->logo,
+                'logo' => PublicMediaUrl::resolve($partner->logo),
                 'url' => $partner->url,
             ]);
 

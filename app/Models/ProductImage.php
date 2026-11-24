@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\PublicMediaUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +16,16 @@ class ProductImage extends Model
         'path',
         'order',
     ];
+
+    public function url(): ?string
+    {
+        return PublicMediaUrl::resolve($this->path);
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->url();
+    }
 
     public function product(): BelongsTo
     {

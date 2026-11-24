@@ -9,6 +9,7 @@ use App\Models\ContactMessage;
 use App\Models\Partner;
 use App\Models\Setting;
 use App\Support\Brand;
+use App\Support\PublicMediaUrl;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -31,7 +32,7 @@ class PartnershipController extends Controller
             ->map(fn (Partner $partner) => [
                 'id' => $partner->id,
                 'name' => $partner->name,
-                'logo' => $partner->logo,
+                'logo' => PublicMediaUrl::resolve($partner->logo),
                 'type' => $partner->tr('type', $locale),
                 'url' => $partner->url,
             ]);

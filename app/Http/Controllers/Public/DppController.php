@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Models\DppMember;
+use App\Support\PublicMediaUrl;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -23,7 +24,7 @@ class DppController extends Controller
                 'id' => $member->id,
                 'name' => $member->name,
                 'position' => $member->tr('position', $locale),
-                'photo' => $member->photo,
+                'photo' => PublicMediaUrl::resolve($member->photo),
                 'order' => $member->order,
                 'period' => $member->period,
                 'bio' => $member->tr('bio', $locale),
