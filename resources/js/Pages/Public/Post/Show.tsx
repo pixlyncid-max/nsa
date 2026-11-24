@@ -257,23 +257,24 @@ export default function Show({
                             Kembali ke Indeks {typeLabel}
                         </Link>
                     </div>
-                </Container>
 
-                {/* Foto Sampul Artikel di Atas Judul */}
-                {post.cover ? (
-                    <div className="mx-auto max-w-5xl px-0 sm:px-6">
-                        <div className="aspect-[16/9] max-h-[520px] w-full overflow-hidden bg-mist sm:rounded-card sm:border sm:border-line sm:shadow-soft">
+                    {/* Foto Sampul Artikel di Atas Judul — sejajar penuh dengan judul & isi teks */}
+                    {post.cover ? (
+                        <div className="aspect-[16/9] max-h-[500px] w-full overflow-hidden rounded-card border border-line bg-mist shadow-soft">
                             <img
                                 src={post.cover}
                                 alt={post.title}
                                 className="h-full w-full object-cover"
                             />
                         </div>
-                    </div>
-                ) : null}
+                    ) : null}
 
-                <Container className={cx('max-w-4xl', post.cover ? 'mt-8 sm:mt-10' : '')}>
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate">
+                    <div
+                        className={cx(
+                            'flex flex-wrap items-center gap-3 text-xs text-slate',
+                            post.cover ? 'mt-8' : ''
+                        )}
+                    >
                         {post.category ? (
                             <Link
                                 href={`${basePath}?category=${post.category.slug}`}
@@ -293,7 +294,7 @@ export default function Show({
                         </span>
                     </div>
 
-                    <h1 className="mt-4 font-display text-3xl font-extrabold leading-[1.15] tracking-tight text-navy sm:text-4xl lg:text-5xl">
+                    <h1 className="mt-4 w-full font-display text-3xl font-extrabold leading-[1.15] tracking-tight text-navy sm:text-4xl lg:text-5xl">
                         {post.title}
                     </h1>
 
@@ -311,150 +312,99 @@ export default function Show({
                             <div />
                         )}
 
-                        {/* Bagikan ringkas di mobile/tablet */}
-                        <div className="flex items-center gap-2 lg:hidden">
+                        {/* Tombol Bagikan */}
+                        <div className="flex items-center gap-2">
+                            <span className="hidden items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate sm:inline-flex mr-1">
+                                <Share2 className="h-3.5 w-3.5 text-ocean" />
+                                Bagikan
+                            </span>
                             <button
                                 type="button"
                                 onClick={shareToWhatsApp}
-                                className="inline-flex min-h-[36px] items-center rounded-control border border-line bg-mist px-3 text-xs font-bold text-navy hover:border-ocean"
+                                className={cx(
+                                    'inline-flex min-h-[36px] items-center rounded-control border border-line bg-mist px-3 text-xs font-bold text-navy transition-colors hover:border-emerald-500 hover:text-emerald-700',
+                                    focusRing
+                                )}
                             >
                                 WhatsApp
                             </button>
                             <button
                                 type="button"
                                 onClick={handleCopyLink}
-                                className="inline-flex min-h-[36px] items-center gap-1.5 rounded-control border border-line bg-white px-3 text-xs font-bold text-navy hover:border-ocean"
+                                className={cx(
+                                    'inline-flex min-h-[36px] items-center gap-1.5 rounded-control border border-line bg-white px-3 text-xs font-bold text-navy transition-colors hover:border-ocean hover:text-ocean',
+                                    focusRing
+                                )}
                             >
                                 {copied ? (
                                     <Check className="h-3.5 w-3.5 text-emerald-600" />
                                 ) : (
                                     <Copy className="h-3.5 w-3.5 text-ocean" />
                                 )}
-                                <span>{copied ? 'Tersalin' : 'Salin'}</span>
+                                <span>{copied ? 'Tersalin' : 'Salin Tautan'}</span>
                             </button>
                         </div>
                     </div>
-                </Container>
 
-                {/* Area Baca: Kiri Daftar Isi Menempel | Tengah Kolom 68ch | Kanan Rel Bagikan Menempel */}
-                <Container className="mt-10 sm:mt-14">
-                    <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
-                        {/* Kiri (3 kolom): Daftar Isi Menempel (Otomatis dari Heading + Scrollspy) */}
-                        <aside
-                            className="hidden lg:sticky lg:col-span-3 lg:block"
-                            style={{
-                                top: 'calc(var(--header-h, 72px) + 28px)',
-                            }}
+                    {/* Daftar Isi Ringkas (bila artikel memiliki subjudul) */}
+                    {headings.length > 0 ? (
+                        <nav
+                            aria-label="Daftar isi artikel"
+                            className="mt-8 rounded-card border border-line bg-mist/45 p-5"
                         >
-                            {headings.length > 0 ? (
-                                <nav
-                                    aria-label="Daftar isi artikel"
-                                    className="rounded-card border border-line bg-mist/45 p-5"
-                                >
-                                    <p className="t-eyebrow text-slate border-b border-line pb-2.5">
-                                        Daftar Isi
-                                    </p>
-                                    <ul className="mt-3 space-y-1.5">
-                                        {headings.map((h) => {
-                                            const isActive =
-                                                currentHeadingId === h.id;
-                                            return (
-                                                <li
-                                                    key={h.id}
-                                                    className={
-                                                        h.level === 3
-                                                            ? 'pl-3'
-                                                            : ''
-                                                    }
-                                                >
-                                                    <a
-                                                        href={`#${h.id}`}
-                                                        onClick={(e) =>
-                                                            handleScrollToHeading(
-                                                                e,
-                                                                h.id
-                                                            )
-                                                        }
-                                                        aria-current={
-                                                            isActive
-                                                                ? 'location'
-                                                                : undefined
-                                                        }
-                                                        className={cx(
-                                                            'block rounded-control border-l-2 px-2.5 py-1.5 text-xs transition-colors',
-                                                            focusRing,
-                                                            isActive
-                                                                ? 'border-ocean bg-white font-bold text-ocean shadow-xs'
-                                                                : 'border-transparent font-medium text-slate hover:border-line hover:text-navy'
-                                                        )}
-                                                    >
-                                                        {h.text}
-                                                    </a>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </nav>
-                            ) : null}
-                        </aside>
+                            <p className="t-eyebrow border-b border-line pb-2.5 text-slate">
+                                Daftar Isi
+                            </p>
+                            <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                                {headings.map((h) => {
+                                    const isActive =
+                                        currentHeadingId === h.id;
+                                    return (
+                                        <li
+                                            key={h.id}
+                                            className={
+                                                h.level === 3 ? 'pl-3' : ''
+                                            }
+                                        >
+                                            <a
+                                                href={`#${h.id}`}
+                                                onClick={(e) =>
+                                                    handleScrollToHeading(
+                                                        e,
+                                                        h.id
+                                                    )
+                                                }
+                                                aria-current={
+                                                    isActive
+                                                        ? 'location'
+                                                        : undefined
+                                                }
+                                                className={cx(
+                                                    'block rounded-control border-l-2 px-2.5 py-1.5 text-xs transition-colors',
+                                                    focusRing,
+                                                    isActive
+                                                        ? 'border-ocean bg-white font-bold text-ocean shadow-xs'
+                                                        : 'border-transparent font-medium text-slate hover:border-line hover:text-navy'
+                                                )}
+                                            >
+                                                {h.text}
+                                            </a>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </nav>
+                    ) : null}
 
-                        {/* Tengah (7 kolom): Kolom Baca 68 Karakter */}
-                        <div className="mx-auto w-full max-w-[68ch] lg:col-span-7">
-                            {post.excerpt ? (
-                                <blockquote className="mb-8 rounded-r-control border-l-4 border-aqua bg-mist/45 px-5 py-4 text-justify font-sans text-base font-medium italic leading-relaxed text-navy sm:text-lg">
-                                    &ldquo;{post.excerpt}&rdquo;
-                                </blockquote>
-                            ) : null}
+                    {/* Isi Artikel: selebar gambar & rata kiri-kanan */}
+                    <div className="mt-8 w-full sm:mt-10">
+                        {post.excerpt ? (
+                            <blockquote className="mb-8 rounded-r-control border-l-4 border-aqua bg-mist/45 px-5 py-4 text-justify font-sans text-base font-medium italic leading-relaxed text-navy sm:text-lg">
+                                &ldquo;{post.excerpt}&rdquo;
+                            </blockquote>
+                        ) : null}
 
-                            <RichText content={post.body} />
-                        </div>
-
-                        {/* Kanan (2 kolom): Rel Bagikan Menempel */}
-                        <aside
-                            className="hidden lg:sticky lg:col-span-2 lg:block"
-                            style={{
-                                top: 'calc(var(--header-h, 72px) + 28px)',
-                            }}
-                        >
-                            <div className="flex flex-col gap-2.5 rounded-card border border-line bg-white p-4 shadow-xs">
-                                <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate">
-                                    <Share2 className="h-3.5 w-3.5 text-ocean" />
-                                    Bagikan
-                                </span>
-
-                                <button
-                                    type="button"
-                                    onClick={handleCopyLink}
-                                    className={cx(
-                                        'inline-flex min-h-[40px] w-full items-center justify-center gap-2 rounded-control border border-line bg-mist/60 px-3 py-2 text-xs font-bold text-navy transition-colors hover:border-ocean hover:bg-white hover:text-ocean',
-                                        focusRing
-                                    )}
-                                >
-                                    {copied ? (
-                                        <>
-                                            <Check className="h-3.5 w-3.5 text-emerald-600" />
-                                            Tersalin
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Copy className="h-3.5 w-3.5 text-ocean" />
-                                            Salin Tautan
-                                        </>
-                                    )}
-                                </button>
-
-                                <button
-                                    type="button"
-                                    onClick={shareToWhatsApp}
-                                    className={cx(
-                                        'inline-flex min-h-[40px] w-full items-center justify-center rounded-control border border-line bg-white px-3 py-2 text-xs font-bold text-navy transition-colors hover:border-emerald-500 hover:text-emerald-700',
-                                        focusRing
-                                    )}
-                                >
-                                    WhatsApp
-                                </button>
-                            </div>
-                        </aside>
+                        <RichText content={post.body} />
                     </div>
                 </Container>
             </article>
