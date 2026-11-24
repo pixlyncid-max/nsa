@@ -83,7 +83,16 @@ export function prepareRichTextWithHeadings(rawHtml: string): {
         /<(h[23])([^>]*)>([\s\S]*?)<\/\1>/gi,
         (_match, tag: string, attrs: string, inner: string) => {
             const level = tag.toLowerCase() === 'h2' ? 2 : 3;
-            const plainText = inner.replace(/<[^>]+>/g, '').trim();
+            const plainText = inner
+                .replace(/<[^>]+>/g, '')
+                .replace(/&nbsp;|&#160;/gi, ' ')
+                .replace(/&amp;/gi, '&')
+                .replace(/&quot;/gi, '"')
+                .replace(/&#39;|&apos;/gi, "'")
+                .replace(/&lt;/gi, '<')
+                .replace(/&gt;/gi, '>')
+                .replace(/\s+/g, ' ')
+                .trim();
             if (!plainText) {
                 return `<${tag}${attrs}>${inner}</${tag}>`;
             }
