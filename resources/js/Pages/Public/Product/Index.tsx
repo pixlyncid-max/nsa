@@ -680,7 +680,7 @@ export default function ProductIndex({
                                 <div
                                     key={portal.value}
                                     className={cx(
-                                        'group relative flex flex-col justify-between overflow-hidden rounded-card border p-5 text-white transition-all duration-500 ease-out sm:p-6',
+                                        'group relative isolate flex flex-col justify-between overflow-hidden rounded-card border bg-navy p-5 text-white transition-all duration-500 ease-out sm:p-6',
                                         isActive
                                             ? 'border-aqua shadow-lift md:flex-[2.2] min-h-[190px]'
                                             : 'border-line shadow-soft md:flex-1 min-h-[150px] hover:border-ocean'
@@ -714,8 +714,8 @@ export default function ProductIndex({
                                             className={cx(
                                                 'absolute inset-0 transition-colors duration-300',
                                                 isActive
-                                                    ? 'bg-gradient-to-r from-navy/90 via-navy/80 to-ocean/70'
-                                                    : 'bg-navy/75 group-hover:bg-navy/60'
+                                                    ? 'bg-gradient-to-r from-navy/75 via-navy/55 to-ocean/40'
+                                                    : 'bg-navy/45 group-hover:bg-navy/30'
                                             )}
                                         />
                                     </div>

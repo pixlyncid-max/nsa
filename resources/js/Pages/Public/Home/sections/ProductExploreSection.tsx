@@ -160,16 +160,16 @@ export default function ProductExploreSection({
                             onMouseEnter={() => setActivePanel(portal.id)}
                             onMouseLeave={() => setActivePanel(null)}
                             className={cx(
-                                'group relative flex flex-col justify-end overflow-hidden rounded-card border border-line p-8 shadow-soft transition-all duration-500 ease-out',
+                                'group relative isolate flex flex-col justify-end overflow-hidden rounded-card border border-line bg-navy p-8 shadow-soft transition-all duration-500 ease-out',
                                 activePanel === portal.id
                                     ? 'flex-[2.2] shadow-lift'
                                     : activePanel === null
                                     ? 'flex-1'
-                                    : 'flex-1 opacity-90'
+                                    : 'flex-1 opacity-95'
                             )}
                         >
                             {/* Background Image dengan Fallback Placeholder */}
-                            <div className="absolute inset-0 -z-10 bg-navy">
+                            <div className="absolute inset-0 z-0 bg-navy">
                                 {portal.image ? (
                                     <img
                                         src={portal.image}
@@ -180,13 +180,13 @@ export default function ProductExploreSection({
                                 ) : (
                                     <div className="h-full w-full bg-gradient-to-br from-navy via-navy to-ocean" />
                                 )}
-                                {/* Overlay Navy Tipis */}
-                                <div className="absolute inset-0 bg-navy/65 transition-colors duration-300 group-hover:bg-navy/45" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent" />
+                                {/* Overlay Navy Ringan agar foto tetap jelas terbaca */}
+                                <div className="absolute inset-0 bg-navy/30 transition-colors duration-300 group-hover:bg-navy/15" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/35 to-transparent" />
                             </div>
 
                             {/* Badge Kategori Atas */}
-                            <div className="absolute top-6 left-6 flex items-center gap-2">
+                            <div className="absolute top-6 left-6 z-10 flex items-center gap-2">
                                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-xs">
                                     <Icon className="h-3.5 w-3.5 text-aqua" />
                                     {portal.tag}
@@ -238,9 +238,9 @@ export default function ProductExploreSection({
                     return (
                         <div
                             key={portal.id}
-                            className="relative flex flex-col justify-end overflow-hidden rounded-card border border-line p-6 text-white min-h-[300px] shadow-soft"
+                            className="relative isolate flex flex-col justify-end overflow-hidden rounded-card border border-line bg-navy p-6 text-white min-h-[300px] shadow-soft"
                         >
-                            <div className="absolute inset-0 -z-10 bg-navy">
+                            <div className="absolute inset-0 z-0 bg-navy">
                                 {portal.image ? (
                                     <img
                                         src={portal.image}
@@ -249,11 +249,12 @@ export default function ProductExploreSection({
                                         loading="lazy"
                                     />
                                 ) : null}
-                                <div className="absolute inset-0 bg-navy/70" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-navy to-transparent" />
+                                <div className="absolute inset-0 bg-navy/35" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/35 to-transparent" />
                             </div>
 
-                            <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-semibold text-white mb-2">
+                            <div className="relative z-10">
+                            <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-semibold text-white mb-2 backdrop-blur-xs">
                                 <Icon className="h-3 w-3 text-aqua" />
                                 {portal.tag}
                             </span>
@@ -286,6 +287,7 @@ export default function ProductExploreSection({
                                 >
                                     {isEn ? 'Browse Category' : 'Telusuri Kategori'}
                                 </Button>
+                            </div>
                             </div>
                         </div>
                     );
