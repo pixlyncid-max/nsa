@@ -32,7 +32,7 @@ interface MobileDrawerProps {
 export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
     const { t } = useCopy();
     const reduced = usePrefersReducedMotion();
-    const { auth } = usePage<PageProps>().props;
+    const { auth, features } = usePage<PageProps>().props;
     const [expanded, setExpanded] = useState<string | null>(null);
     const onCloseRef = useRef(onClose);
 
@@ -256,19 +256,21 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                             </div>
 
                             {/* 05 Kemitraan */}
-                            <div className="border-t border-line/60 pt-3">
-                                <Link
-                                    href="/kemitraan"
-                                    className="group flex items-baseline gap-4 py-2"
-                                >
-                                    <span className="font-mono text-lg sm:text-xl font-bold text-ocean/50 group-hover:text-ocean transition-colors">
-                                        05
-                                    </span>
-                                    <span className="font-display text-2xl sm:text-3xl font-bold text-navy group-hover:text-ocean transition-colors">
-                                        {t('global.nav.partnership')}
-                                    </span>
-                                </Link>
-                            </div>
+                            {features?.partnership_enabled ? (
+                                <div className="border-t border-line/60 pt-3">
+                                    <Link
+                                        href="/kemitraan"
+                                        className="group flex items-baseline gap-4 py-2"
+                                    >
+                                        <span className="font-mono text-lg sm:text-xl font-bold text-ocean/50 group-hover:text-ocean transition-colors">
+                                            05
+                                        </span>
+                                        <span className="font-display text-2xl sm:text-3xl font-bold text-navy group-hover:text-ocean transition-colors">
+                                            {t('global.nav.partnership')}
+                                        </span>
+                                    </Link>
+                                </div>
+                            ) : null}
 
                             {/* 06 Artikel */}
                             <div className="border-t border-line/60 pt-3">

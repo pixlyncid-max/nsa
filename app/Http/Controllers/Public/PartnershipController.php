@@ -23,6 +23,10 @@ class PartnershipController extends Controller
      */
     public function index(): Response
     {
+        if (! filter_var(Setting::get('partnership_page_enabled', '0'), FILTER_VALIDATE_BOOLEAN)) {
+            abort(404);
+        }
+
         $short = Brand::shortName();
 
         $locale = app()->getLocale();
@@ -142,6 +146,10 @@ class PartnershipController extends Controller
      */
     public function store(StorePartnershipRequest $request): RedirectResponse
     {
+        if (! filter_var(Setting::get('partnership_page_enabled', '0'), FILTER_VALIDATE_BOOLEAN)) {
+            abort(404);
+        }
+
         $validated = $request->validated();
         $short = Brand::shortName();
 

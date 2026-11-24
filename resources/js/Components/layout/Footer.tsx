@@ -23,7 +23,9 @@ export default function Footer() {
 
     const navLinks = [
         { href: lp('/tentang-kami'), label: t('global.nav.about') },
-        { href: lp('/kemitraan'), label: t('global.nav.partnership') },
+        ...(props.features?.partnership_enabled
+            ? [{ href: lp('/kemitraan'), label: t('global.nav.partnership') }]
+            : []),
         { href: lp('/artikel'), label: t('global.nav.articles') },
         { href: lp('/kontak'), label: t('global.nav.contact') },
     ];

@@ -43,6 +43,7 @@ interface SettingsProps {
         social_youtube: string;
         require_initial_verification?: boolean;
         require_ktp_for_wni?: boolean;
+        partnership_page_enabled?: boolean;
         membership_statement_template?: string;
         terms_content?: string;
         privacy_policy_content?: string;
@@ -89,6 +90,9 @@ export default function SettingsIndex({
     );
     const [requireKtpForWni, setRequireKtpForWni] = useState<boolean>(
         settings.require_ktp_for_wni ?? true
+    );
+    const [partnershipPageEnabled, setPartnershipPageEnabled] = useState<boolean>(
+        settings.partnership_page_enabled ?? false
     );
     const [membershipStatementTemplate, setMembershipStatementTemplate] = useState<string>(
         settings.membership_statement_template || ''
@@ -150,6 +154,7 @@ export default function SettingsIndex({
         formData.append('social_youtube', socialYoutube);
         formData.append('require_initial_verification', requireInitialVerification ? '1' : '0');
         formData.append('require_ktp_for_wni', requireKtpForWni ? '1' : '0');
+        formData.append('partnership_page_enabled', partnershipPageEnabled ? '1' : '0');
         formData.append('membership_statement_template', membershipStatementTemplate);
         formData.append('terms_content', termsContent);
         formData.append('privacy_policy_content', privacyPolicyContent);
@@ -183,6 +188,48 @@ export default function SettingsIndex({
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
+                    {/* Visibilitas Halaman Publik */}
+                    <Card className="p-6 space-y-4">
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-2 text-ocean">
+                                <Globe className="h-5 w-5" />
+                                <h3 className="font-display text-base font-bold text-navy">
+                                    Visibilitas Halaman Publik
+                                </h3>
+                            </div>
+                            <span
+                                className={
+                                    partnershipPageEnabled
+                                        ? 'rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-700'
+                                        : 'rounded-full bg-slate/15 px-2.5 py-0.5 text-xs font-bold text-slate'
+                                }
+                            >
+                                Kemitraan: {partnershipPageEnabled ? 'Aktif' : 'Disembunyikan'}
+                            </span>
+                        </div>
+
+                        <div className="flex items-start gap-3 rounded-lg border border-line bg-mist/40 p-3.5">
+                            <input
+                                type="checkbox"
+                                id="partnership_page_enabled"
+                                checked={partnershipPageEnabled}
+                                onChange={(e) => setPartnershipPageEnabled(e.target.checked)}
+                                className="mt-1 rounded border-line text-ocean focus:ring-ocean"
+                            />
+                            <div>
+                                <label
+                                    htmlFor="partnership_page_enabled"
+                                    className="block cursor-pointer text-sm font-semibold text-navy"
+                                >
+                                    Tampilkan Halaman Kemitraan (/kemitraan)
+                                </label>
+                                <p className="mt-0.5 text-xs text-slate">
+                                    Bila dicentang, menu <strong>Kemitraan</strong> muncul di Navbar, Menu Mobile, Footer, dan dapat diakses publik. Bila dimatikan, menu disembunyikan dan halaman <code>/kemitraan</code> mengembalikan 404.
+                                </p>
+                            </div>
+                        </div>
+                    </Card>
+
                     {/* Identitas Organisasi & Brand */}
                     <Card className="p-6 space-y-4">
                         <div className="flex items-center gap-2 text-ocean">

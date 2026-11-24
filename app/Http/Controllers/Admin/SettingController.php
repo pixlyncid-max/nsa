@@ -46,6 +46,7 @@ class SettingController extends Controller
             // Pengaturan NSA Keanggotaan
             'require_initial_verification' => (bool) Setting::get('membership.require_initial_verification', true),
             'require_ktp_for_wni' => (bool) Setting::get('membership.require_ktp_for_wni', true),
+            'partnership_page_enabled' => filter_var(Setting::get('partnership_page_enabled', '0'), FILTER_VALIDATE_BOOLEAN),
             'membership_statement_template' => Setting::get('membership_statement_template', 'Dengan ini menyatakan tunduk pada Anggaran Dasar dan Anggaran Rumah Tangga (AD/ART) NSA serta bersedia menjaga nama baik organisasi dan integritas budidaya perikanan berkelanjutan.'),
             'terms_content' => Setting::get('terms_content', "Syarat & Ketentuan Keanggotaan NSA:\n1. Calon anggota wajib mengisi data yang sah dan dapat dipertanggungjawabkan.\n2. Berkomitmen menjaga mutu dan kelestarian ekosistem akuakultur nasional.\n3. Mematuhi AD/ART dan kode etik perikanan berkelanjutan."),
             'privacy_policy_content' => Setting::get('privacy_policy_content', "Kebijakan Privasi Anggota NSA:\n1. Data identitas dan dokumen legalitas dilindungi dan disimpan secara terenkripsi.\n2. Informasi hanya digunakan untuk verifikasi keanggotaan dan pemetaan statistik asosiasi.\n3. NSA tidak menyebarluaskan data pribadi anggota kepada pihak ketiga tanpa izin resmi."),
@@ -82,6 +83,7 @@ class SettingController extends Controller
             'social_youtube' => ['nullable', 'string', 'max:255'],
             'require_initial_verification' => ['nullable', 'boolean'],
             'require_ktp_for_wni' => ['nullable', 'boolean'],
+            'partnership_page_enabled' => ['nullable', 'boolean'],
             'membership_statement_template' => ['nullable', 'string'],
             'terms_content' => ['nullable', 'string'],
             'privacy_policy_content' => ['nullable', 'string'],
@@ -121,6 +123,9 @@ class SettingController extends Controller
         }
         if (array_key_exists('require_ktp_for_wni', $validated)) {
             Setting::set('membership.require_ktp_for_wni', (bool) $validated['require_ktp_for_wni']);
+        }
+        if (array_key_exists('partnership_page_enabled', $validated)) {
+            Setting::set('partnership_page_enabled', $request->boolean('partnership_page_enabled') ? '1' : '0');
         }
         if (isset($validated['membership_statement_template'])) {
             Setting::set('membership_statement_template', $validated['membership_statement_template']);

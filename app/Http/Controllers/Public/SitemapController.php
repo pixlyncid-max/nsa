@@ -6,6 +6,7 @@ use App\Enums\PostType;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\Setting;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -25,7 +26,9 @@ class SitemapController extends Controller
             ['path' => '/organisasi/dpw', 'priority' => '0.8', 'changefreq' => 'monthly'],
             ['path' => '/organisasi/dpc', 'priority' => '0.8', 'changefreq' => 'monthly'],
             ['path' => '/produk', 'priority' => '0.9', 'changefreq' => 'daily'],
-            ['path' => '/kemitraan', 'priority' => '0.8', 'changefreq' => 'monthly'],
+            ...(filter_var(Setting::get('partnership_page_enabled', '0'), FILTER_VALIDATE_BOOLEAN)
+                ? [['path' => '/kemitraan', 'priority' => '0.8', 'changefreq' => 'monthly']]
+                : []),
             ['path' => '/artikel', 'priority' => '0.8', 'changefreq' => 'daily'],
             ['path' => '/berita', 'priority' => '0.8', 'changefreq' => 'daily'],
             ['path' => '/kontak', 'priority' => '0.7', 'changefreq' => 'monthly'],

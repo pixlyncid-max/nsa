@@ -112,6 +112,9 @@ export type PageProps<
     canEditCopy?: boolean;
     brand: Brand;
     siteMedia?: Record<string, string | null>;
+    features?: {
+        partnership_enabled: boolean;
+    };
 };
 
 declare global {

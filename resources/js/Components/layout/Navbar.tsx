@@ -149,13 +149,15 @@ export default function Navbar({ scrolled: parentScrolled }: NavbarProps = {}) {
                         {isActivePath(url, '/tentang-kami') ? <ActiveBar /> : null}
                     </Link>
 
-                    <Link
-                        href={lp('/kemitraan')}
-                        className={navLink(isActivePath(url, '/kemitraan'))}
-                    >
-                        {t('global.nav.partnership')}
-                        {isActivePath(url, '/kemitraan') ? <ActiveBar /> : null}
-                    </Link>
+                    {props.features?.partnership_enabled ? (
+                        <Link
+                            href={lp('/kemitraan')}
+                            className={navLink(isActivePath(url, '/kemitraan'))}
+                        >
+                            {t('global.nav.partnership')}
+                            {isActivePath(url, '/kemitraan') ? <ActiveBar /> : null}
+                        </Link>
+                    ) : null}
 
                     <Link
                         href={lp('/artikel')}

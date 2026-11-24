@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Enums\MembershipStatus;
 use App\Enums\Role;
 use App\Models\MemberApplication;
+use App\Models\Setting;
 use App\Services\CartService;
 use App\Services\CopyService;
 use App\Services\SiteMediaService;
@@ -101,6 +102,9 @@ class HandleInertiaRequests extends Middleware
             },
             'brand' => fn () => Brand::toArray(),
             'siteMedia' => fn () => app(SiteMediaService::class)->allUrls(),
+            'features' => fn () => [
+                'partnership_enabled' => filter_var(Setting::get('partnership_page_enabled', '0'), FILTER_VALIDATE_BOOLEAN),
+            ],
             'locale' => fn () => app()->getLocale(),
             'availableLocales' => fn () => config('locales.locales', []),
             'alternates' => fn () => LocaleUrl::alternates($request),
