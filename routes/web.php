@@ -97,8 +97,12 @@ Route::localized(function () {
     });
 });
 
-// Sitemap XML (memuat kedua bahasa id & en)
+// Sitemap XML (memuat sitemap_index.xml, sitemap.xml gabungan, dan sub-sitemap per kategori)
+Route::get('/sitemap_index.xml', [SitemapController::class, 'sitemapIndex'])->name('sitemap.index');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/sitemap-pages.xml', [SitemapController::class, 'pages'])->name('sitemap.pages');
+Route::get('/sitemap-posts.xml', [SitemapController::class, 'posts'])->name('sitemap.posts');
+Route::get('/sitemap-products.xml', [SitemapController::class, 'products'])->name('sitemap.products');
 
 // API Wilayah Indonesia (Cascading)
 Route::get('/api/wilayah/{level}', [RegionController::class, 'wilayah'])->name('api.wilayah');

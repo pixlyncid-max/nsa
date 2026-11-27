@@ -44,6 +44,47 @@ class OpenGraphMetaTest extends TestCase
         $response->assertSee('<meta property="og:image:width" content="', false);
         $response->assertSee('<meta property="og:image:height" content="', false);
         $response->assertSee('<meta name="twitter:card" content="summary_large_image">', false);
+        $response->assertSee('"@type":"Article"', false);
+        $response->assertSee('"@type":"Organization"', false);
+        $response->assertSee('<h1>Mengenal Budidaya Ikan Air Tawar Nusantara</h1>', false);
+    }
+
+    public function test_sitemap_index_and_sub_sitemaps_return_valid_xml_for_google_search_console(): void
+    {
+        $author = User::factory()->create();
+        $news = Post::create([
+            'type' => PostType::News,
+            'author_id' => $author->id,
+            'title' => 'Audiensi Perikanan Samarinda',
+            'slug' => 'audiensi-perikanan-samarinda',
+            'body' => '<p>Berita kegiatan NSA di Samarinda.</p>',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        $this->get('/sitemap_index.xml')
+            ->assertOk()
+            ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')
+            ->assertSee('<sitemapindex', false)
+            ->assertSee('/sitemap-pages.xml', false)
+            ->assertSee('/sitemap-posts.xml', false)
+            ->assertSee('/sitemap-products.xml', false);
+
+        $this->get('/sitemap.xml')
+            ->assertOk()
+            ->assertSee('<urlset', false)
+            ->assertSee('/berita/'.$news->slug, false);
+
+        $this->get('/sitemap-posts.xml')
+            ->assertOk()
+            ->assertSee('/berita/'.$news->slug, false);
+
+        $this->get('/sitemap-pages.xml')->assertOk()->assertSee('<urlset', false);
+        $this->get('/sitemap-products.xml')->assertOk()->assertSee('<urlset', false);
+
+        $this->get('/berita/'.$news->slug)
+            ->assertOk()
+            ->assertSee('"@type":"NewsArticle"', false);
     }
 
     public function test_product_detail_renders_server_side_open_graph_meta_tags_with_product_image(): void

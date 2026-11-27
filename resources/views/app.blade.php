@@ -36,6 +36,18 @@
             $seoImageType = $preparedOg['type'];
         }
     }
+    $siteOrigin = rtrim(request()->getSchemeAndHttpHost(), '/');
+    $orgSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Organization',
+        'name' => \App\Support\Brand::name(),
+        'alternateName' => \App\Support\Brand::shortName(),
+        'url' => $siteOrigin,
+        'logo' => $siteOrigin.'/images/brand/logo-navbar@3x.png',
+    ];
+    $pageSchema = is_array($seoData['schema'] ?? null) ? $seoData['schema'] : null;
+    $noscriptArticle = is_array($seoData['noscript'] ?? null) ? $seoData['noscript'] : null;
+    $googleSiteVerification = (string) env('GOOGLE_SITE_VERIFICATION', '');
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $htmlLang }}">
@@ -46,6 +58,10 @@
         <title inertia>{{ $seoTitle }}</title>
 
         @if (! $isAdminArea)
+            @if ($googleSiteVerification !== '')
+                <meta name="google-site-verification" content="{{ $googleSiteVerification }}">
+            @endif
+            <meta name="robots" content="index, follow">
             <meta name="description" content="{{ $seoDescription }}">
             <meta property="og:site_name" content="{{ $seoSiteName }}">
             <meta property="og:type" content="{{ $seoType }}">
@@ -82,6 +98,13 @@
             <link rel="alternate" hreflang="x-default" href="{{ strtok($seoAlternates['id'], '?') ?: $seoAlternates['id'] }}">
         @endif
 
+        @if (! $isAdminArea)
+            <script type="application/ld+json">{!! json_encode($orgSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+            @if ($pageSchema)
+                <script type="application/ld+json">{!! json_encode($pageSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+            @endif
+        @endif
+
         <!-- Google Fonts: Bricolage Grotesque & Plus Jakarta Sans -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,5 +118,19 @@
     </head>
     <body class="font-sans antialiased bg-white text-ink selection:bg-ocean selection:text-white min-h-screen">
         @inertia
+        @if ($noscriptArticle)
+            <noscript>
+                <article style="max-width:760px;margin:2rem auto;padding:0 1rem;font-family:sans-serif;line-height:1.7;">
+                    <h1>{{ $noscriptArticle['title'] }}</h1>
+                    @if (! empty($noscriptArticle['date']) || ! empty($noscriptArticle['author']))
+                        <p>{{ trim(($noscriptArticle['date'] ?? '').' '.($noscriptArticle['author'] ?? '')) }}</p>
+                    @endif
+                    @if (! empty($noscriptArticle['excerpt']))
+                        <p><strong>{{ $noscriptArticle['excerpt'] }}</strong></p>
+                    @endif
+                    <p>{{ $noscriptArticle['body'] }}</p>
+                </article>
+            </noscript>
+        @endif
     </body>
 </html>

@@ -185,6 +185,44 @@ class PostController extends Controller
             160
         );
 
+        $plainArticleBody = trim((string) preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($localizedBody), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        $absoluteCover = $post->coverUrl()
+            ? (preg_match('/^https?:\/\//i', (string) $post->coverUrl())
+                ? $post->coverUrl()
+                : rtrim(request()->getSchemeAndHttpHost(), '/').'/'.ltrim((string) $post->coverUrl(), '/'))
+            : null;
+        $brandName = Brand::name();
+        $siteOrigin = rtrim(request()->getSchemeAndHttpHost(), '/');
+        $authorName = $post->publisher_name ?: $brandName;
+
+        $articleSchema = array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => $postType === PostType::News ? 'NewsArticle' : 'Article',
+            'headline' => $localizedTitle,
+            'description' => $seoDescription,
+            'image' => $absoluteCover ? [$absoluteCover] : null,
+            'datePublished' => ($post->published_at ?? $post->created_at)?->toAtomString(),
+            'dateModified' => $post->updated_at?->toAtomString(),
+            'author' => [
+                '@type' => $post->publisher_name ? 'Person' : 'Organization',
+                'name' => $authorName,
+            ],
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => $brandName,
+                'url' => $siteOrigin,
+                'logo' => [
+                    '@type' => 'ImageObject',
+                    'url' => $siteOrigin.'/images/brand/logo-navbar@3x.png',
+                ],
+            ],
+            'mainEntityOfPage' => [
+                '@type' => 'WebPage',
+                '@id' => url()->current(),
+            ],
+            'articleBody' => Str::limit($plainArticleBody, 5000),
+        ], fn ($v) => $v !== null);
+
         return Inertia::render('Public/Post/Show', [
             'type' => $type,
             'typeLabel' => $locale === 'en'
@@ -216,6 +254,14 @@ class PostController extends Controller
             'description' => $seoDescription,
             'image' => $post->coverUrl(),
             'url' => url()->current(),
+            'schema' => $articleSchema,
+            'noscript' => [
+                'title' => $localizedTitle,
+                'date' => $post->published_at?->translatedFormat('d F Y') ?? '',
+                'author' => $post->publisher_name,
+                'excerpt' => $localizedExcerpt,
+                'body' => $plainArticleBody,
+            ],
         ]);
     }
 }

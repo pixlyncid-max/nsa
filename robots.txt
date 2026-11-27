@@ -2,6 +2,9 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /akun/
+Disallow: /anggota/
 Disallow: /checkout/
+Disallow: /keranjang/
 
-Sitemap: https://ifaa.or.id/sitemap.xml
+Sitemap: https://nsa.or.id/sitemap_index.xml
+Sitemap: https://nsa.or.id/sitemap.xml
