@@ -25,35 +25,15 @@
     $seoImageHeight = 630;
     $seoImageType = null;
     if (is_string($rawSeoImage) && trim($rawSeoImage) !== '') {
-        $rawSeoImage = trim($rawSeoImage);
-        $seoImage = preg_match('/^https?:\/\//i', $rawSeoImage)
-            ? $rawSeoImage
-            : rtrim(request()->getSchemeAndHttpHost(), '/').'/'.ltrim($rawSeoImage, '/');
-
-        // Deteksi dimensi & MIME asli berkas lokal agar WhatsApp menampilkan kartu foto besar (large preview)
-        $relativePath = ltrim((string) parse_url($rawSeoImage, PHP_URL_PATH), '/');
-        $localImagePath = null;
-        if (str_starts_with($relativePath, 'storage/')) {
-            $candidate = storage_path('app/public/'.substr($relativePath, 8));
-            if (is_file($candidate)) {
-                $localImagePath = $candidate;
-            }
-        } elseif ($relativePath !== '' && is_file(public_path($relativePath))) {
-            $localImagePath = public_path($relativePath);
-        }
-
-        if ($localImagePath && ($imgInfo = @getimagesize($localImagePath))) {
-            $seoImageWidth = (int) ($imgInfo[0] ?? 1200);
-            $seoImageHeight = (int) ($imgInfo[1] ?? 630);
-            $seoImageType = $imgInfo['mime'] ?? null;
-        } else {
-            $ext = strtolower(pathinfo($relativePath, PATHINFO_EXTENSION));
-            $seoImageType = match ($ext) {
-                'jpg', 'jpeg' => 'image/jpeg',
-                'png' => 'image/png',
-                'webp' => 'image/webp',
-                default => 'image/jpeg',
-            };
+        $preparedOg = app(\App\Services\OpenGraphImageService::class)->prepare($rawSeoImage);
+        if ($preparedOg !== null) {
+            $imgUrl = $preparedOg['url'];
+            $seoImage = preg_match('/^https?:\/\//i', $imgUrl)
+                ? $imgUrl
+                : rtrim(request()->getSchemeAndHttpHost(), '/').'/'.ltrim($imgUrl, '/');
+            $seoImageWidth = $preparedOg['width'];
+            $seoImageHeight = $preparedOg['height'];
+            $seoImageType = $preparedOg['type'];
         }
     }
 @endphp
