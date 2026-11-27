@@ -21,6 +21,7 @@ class SiteTextController extends Controller
     /** @var array<string, array{label: string, public_url: ?string}> */
     private const GROUP_META = [
         'global' => ['label' => 'Umum', 'public_url' => '/'],
+        'footer' => ['label' => 'Footer', 'public_url' => '/'],
         'home' => ['label' => 'Beranda', 'public_url' => '/'],
         'organization' => ['label' => 'Organisasi', 'public_url' => '/organisasi/dpp'],
         'products' => ['label' => 'Produk', 'public_url' => '/produk'],

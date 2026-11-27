@@ -21,6 +21,24 @@ export default function Footer() {
     const { lp } = useLocale();
     const brandShort = props.brand?.short_name || copy.brand.name;
 
+    const footerAddress = t('footer.contact.address') || siteInfo.address;
+    const footerPhone = t('footer.contact.phone') || siteInfo.phone;
+    const footerEmail = t('footer.contact.email') || siteInfo.email;
+    const socialLinks = [
+        {
+            label: t('footer.social.instagram_label') || 'Instagram',
+            href: t('footer.social.instagram_url'),
+        },
+        {
+            label: t('footer.social.facebook_label') || 'Facebook',
+            href: t('footer.social.facebook_url'),
+        },
+        {
+            label: t('footer.social.youtube_label') || 'YouTube',
+            href: t('footer.social.youtube_url'),
+        },
+    ].filter((s) => s.href && s.href.trim() !== '');
+
     const navLinks = [
         { href: lp('/tentang-kami'), label: t('global.nav.about') },
         ...(props.features?.partnership_enabled
@@ -64,10 +82,10 @@ export default function Footer() {
                     <div className="lg:col-span-5">
                         <BrandLogo variant="footer" />
                         <p className="mt-4 max-w-sm text-xs leading-relaxed text-white/80 sm:text-sm">
-                            {t('global.footer.tagline')}
+                            {t('footer.brand.tagline')}
                         </p>
                         <p className="mt-3 max-w-sm text-xs leading-relaxed text-white/60">
-                            {t('global.footer.about_body')}
+                            {t('footer.brand.about_body')}
                         </p>
                     </div>
 
@@ -75,7 +93,7 @@ export default function Footer() {
                     <div className="grid grid-cols-2 gap-6 lg:col-span-4">
                         <div>
                             <h4 className="t-eyebrow mb-3 text-aqua">
-                                {t('global.footer.nav_heading')}
+                                {t('footer.nav.heading')}
                             </h4>
                             <ul className="space-y-2">
                                 <li>
@@ -85,7 +103,7 @@ export default function Footer() {
                                 </li>
                                 <li>
                                     <Link href={lp('/produk')} className={footerLink}>
-                                        {t('global.footer.nav_shop')}
+                                        {t('footer.nav.shop')}
                                     </Link>
                                 </li>
                                 {navLinks.map((item) => (
@@ -100,7 +118,7 @@ export default function Footer() {
 
                         <div>
                             <h4 className="t-eyebrow mb-3 text-aqua">
-                                {t('global.nav.organization')}
+                                {t('footer.nav.org_heading')}
                             </h4>
                             <ul className="space-y-2">
                                 {orgFooterLinks.map((item) => (
@@ -115,7 +133,7 @@ export default function Footer() {
                                         href={lp('/tentang-kami#program-kerja')}
                                         className={footerLink}
                                     >
-                                        {t('global.footer.nav_programs')}
+                                        {t('footer.nav.programs')}
                                     </Link>
                                 </li>
                             </ul>
@@ -125,40 +143,46 @@ export default function Footer() {
                     {/* Kolom 3: Kontak Sekretariat */}
                     <div className="lg:col-span-3">
                         <h4 className="t-eyebrow mb-3 text-aqua">
-                            {t('global.footer.contact_heading')}
+                            {t('footer.contact.heading')}
                         </h4>
                         <ul className="space-y-3 text-xs text-white/80 sm:text-sm">
-                            <li className="flex items-start gap-3">
-                                <MapPin
-                                    className="mt-0.5 h-4 w-4 shrink-0 text-aqua"
-                                    strokeWidth={1.75}
-                                />
-                                <span className="leading-snug">{siteInfo.address}</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <Phone
-                                    className="h-4 w-4 shrink-0 text-aqua"
-                                    strokeWidth={1.75}
-                                />
-                                <a
-                                    href={`tel:${siteInfo.phone.replace(/\s/g, '')}`}
-                                    className={footerLink}
-                                >
-                                    {siteInfo.phone}
-                                </a>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <Mail
-                                    className="h-4 w-4 shrink-0 text-aqua"
-                                    strokeWidth={1.75}
-                                />
-                                <a
-                                    href={`mailto:${siteInfo.email}`}
-                                    className={footerLink}
-                                >
-                                    {siteInfo.email}
-                                </a>
-                            </li>
+                            {footerAddress ? (
+                                <li className="flex items-start gap-3">
+                                    <MapPin
+                                        className="mt-0.5 h-4 w-4 shrink-0 text-aqua"
+                                        strokeWidth={1.75}
+                                    />
+                                    <span className="leading-snug">{footerAddress}</span>
+                                </li>
+                            ) : null}
+                            {footerPhone ? (
+                                <li className="flex items-center gap-3">
+                                    <Phone
+                                        className="h-4 w-4 shrink-0 text-aqua"
+                                        strokeWidth={1.75}
+                                    />
+                                    <a
+                                        href={`tel:${footerPhone.replace(/\s/g, '')}`}
+                                        className={footerLink}
+                                    >
+                                        {footerPhone}
+                                    </a>
+                                </li>
+                            ) : null}
+                            {footerEmail ? (
+                                <li className="flex items-center gap-3">
+                                    <Mail
+                                        className="h-4 w-4 shrink-0 text-aqua"
+                                        strokeWidth={1.75}
+                                    />
+                                    <a
+                                        href={`mailto:${footerEmail}`}
+                                        className={footerLink}
+                                    >
+                                        {footerEmail}
+                                    </a>
+                                </li>
+                            ) : null}
                         </ul>
                     </div>
                 </div>
@@ -166,13 +190,13 @@ export default function Footer() {
                 {/* Baris Bawah: Hak Cipta Kecil */}
                 <div className="flex flex-col gap-4 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
                     <p>
-                        {t('global.footer.copyright', {
+                        {t('footer.bottom.copyright', {
                             year: new Date().getFullYear(),
                             brand: brandShort,
                         })}
                     </p>
                     <div className="flex flex-wrap gap-x-5 gap-y-2">
-                        {siteInfo.socials.map((social) => (
+                        {socialLinks.map((social) => (
                             <a
                                 key={social.label}
                                 href={social.href}

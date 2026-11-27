@@ -40,7 +40,7 @@ class SiteTextManagementTest extends TestCase
             ->assertInertia(fn ($page) => $page
                 ->component('Admin/SiteTexts/Index')
                 ->where('activeGroup', 'home')
-                ->has('groups', 14)
+                ->has('groups', 15)
             );
 
         // 2. Ubah teks via endpoint JSON (seperti di UI editor)

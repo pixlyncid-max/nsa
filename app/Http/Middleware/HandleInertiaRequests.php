@@ -294,7 +294,7 @@ class HandleInertiaRequests extends Middleware
      */
     protected function resolveCopyGroups(Request $request): array
     {
-        $groups = ['global'];
+        $groups = ['global', 'footer'];
         $routeName = $request->route()?->getName();
 
         if (! is_string($routeName) || $routeName === '') {
