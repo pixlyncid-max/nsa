@@ -1,0 +1,1 @@
+import{j as r,o as s}from"./vendor-core-DSikaWNu.js";function a({message:e,className:t="",...n}){return e?r.jsxs("p",{...n,className:`mt-1.5 flex items-center gap-1.5 text-[13px] font-medium text-danger ${t}`,children:[r.jsx(s,{className:"h-4 w-4 shrink-0","aria-hidden":"true"}),r.jsx("span",{children:e})]}):null}export{a as I};

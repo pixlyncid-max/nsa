@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -42,11 +43,26 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $email = Str::lower(trim((string) $this->input('email')));
+        $user = User::query()->whereRaw('LOWER(email) = ?', [$email])->first();
+
+        if (! $user) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => app()->getLocale() === 'en'
+                    ? 'The email address is not registered or is incorrect.'
+                    : 'Email yang Anda masukkan salah atau tidak terdaftar.',
+            ]);
+        }
+
+        if (! Auth::attempt(['email' => $user->email, 'password' => (string) $this->input('password')], $this->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'password' => app()->getLocale() === 'en'
+                    ? 'The password you entered is incorrect.'
+                    : 'Kata sandi yang Anda masukkan salah.',
             ]);
         }
 

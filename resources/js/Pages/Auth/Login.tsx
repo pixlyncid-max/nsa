@@ -4,8 +4,8 @@ import PrimaryButton from '@/Components/ui/PrimaryButton';
 import TextInput from '@/Components/ui/TextInput';
 import AuthLayout from '@/Layouts/AuthLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowRight, Lock, Mail } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { ArrowRight, Eye, EyeOff, Mail } from 'lucide-react';
+import { FormEventHandler, useState } from 'react';
 
 interface LoginProps {
     status?: string;
@@ -13,6 +13,7 @@ interface LoginProps {
 }
 
 export default function Login({ status, canResetPassword = true }: LoginProps) {
+    const [showPassword, setShowPassword] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -82,20 +83,40 @@ export default function Login({ status, canResetPassword = true }: LoginProps) {
                     <div className="relative">
                         <TextInput
                             id="password"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             name="password"
                             value={data.password}
                             placeholder="••••••••"
                             autoComplete="current-password"
+                            className="pr-11"
                             isError={!!errors.password}
                             onChange={(e) =>
                                 setData('password', e.target.value)
                             }
                             required
                         />
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate/50">
-                            <Lock className="h-4 w-4" />
-                        </div>
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            aria-label={
+                                showPassword
+                                    ? 'Sembunyikan kata sandi'
+                                    : 'Lihat kata sandi'
+                            }
+                            aria-pressed={showPassword}
+                            title={
+                                showPassword
+                                    ? 'Sembunyikan kata sandi'
+                                    : 'Lihat kata sandi'
+                            }
+                            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate/70 transition-colors hover:text-navy focus:outline-none focus-visible:text-ocean"
+                        >
+                            {showPassword ? (
+                                <EyeOff className="h-4 w-4" />
+                            ) : (
+                                <Eye className="h-4 w-4" />
+                            )}
+                        </button>
                     </div>
                     <InputError message={errors.password} />
                 </div>

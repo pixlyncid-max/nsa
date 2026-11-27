@@ -76,12 +76,25 @@ test('superadmin authenticates and redirects to /admin', function () {
 test('user cannot authenticate with invalid password', function () {
     $user = User::factory()->create();
 
-    $this->post('/login', [
+    $response = $this->post('/login', [
         'email' => $user->email,
         'password' => 'wrong-password',
     ]);
 
     $this->assertGuest();
+    $response->assertSessionHasErrors('password');
+    $response->assertSessionDoesntHaveErrors('email');
+});
+
+test('user sees email error when email is not registered', function () {
+    $response = $this->post('/login', [
+        'email' => 'tidak-terdaftar@nsa.or.id',
+        'password' => 'password',
+    ]);
+
+    $this->assertGuest();
+    $response->assertSessionHasErrors('email');
+    $response->assertSessionDoesntHaveErrors('password');
 });
 
 test('regular user is forbidden from accessing /admin with 403', function () {

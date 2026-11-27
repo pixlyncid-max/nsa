@@ -1,1 +1,0 @@
-import{j as r}from"./vendor-core-COEY2uhg.js";import{c as o}from"./cx-2dOUpm6k.js";import{a as i,b as m}from"./ui-BKZwqZ9U.js";function n({className:t,isError:s=!1,type:a="text",...e}){return r.jsx("input",{...e,type:a,className:o("h-11 px-3.5",m,i(s),t)})}export{n as T};

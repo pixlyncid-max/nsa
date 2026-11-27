@@ -1,0 +1,1 @@
+import{j as s}from"./vendor-core-DSikaWNu.js";function x({value:e,required:t=!1,className:n="",children:a,...l}){return s.jsxs("label",{...l,className:`mb-1.5 block text-[13px] font-semibold text-ink ${n}`,children:[e||a,t&&s.jsx("span",{className:"ml-1 text-danger",children:"*"})]})}export{x as I};

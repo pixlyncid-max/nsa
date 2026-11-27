@@ -1,0 +1,1 @@
+import{h as a,r as o}from"./vendor-core-DSikaWNu.js";function u(){const e=a().props.siteMedia,s=o.useCallback((r,i="")=>{const t=e?.[r];return typeof t=="string"&&t.trim()!==""?t:i},[e]);return{siteMedia:e??{},media:s}}export{u};
