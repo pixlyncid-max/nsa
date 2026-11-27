@@ -8,6 +8,7 @@ use App\Models\ContentTranslation;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -176,6 +177,13 @@ class PostController extends Controller
                 ] : null,
             ]);
 
+        $localizedTitle = (string) ($post->tr('title', $locale) ?? $post->title);
+        $localizedExcerpt = (string) ($post->tr('excerpt', $locale) ?? '');
+        $seoDescription = Str::limit(
+            trim((string) preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($localizedExcerpt !== '' ? $localizedExcerpt : $localizedBody), ENT_QUOTES | ENT_HTML5, 'UTF-8'))),
+            160
+        );
+
         return Inertia::render('Public/Post/Show', [
             'type' => $type,
             'typeLabel' => $locale === 'en'
@@ -183,9 +191,9 @@ class PostController extends Controller
                 : ($postType === PostType::News ? 'Berita' : 'Artikel'),
             'post' => [
                 'id' => $post->id,
-                'title' => $post->tr('title', $locale),
+                'title' => $localizedTitle,
                 'slug' => $post->slug,
-                'excerpt' => $post->tr('excerpt', $locale),
+                'excerpt' => $localizedExcerpt,
                 'body' => $localizedBody,
                 'cover' => $post->coverUrl(),
                 'published_at' => $post->published_at?->translatedFormat('d F Y') ?? '',
@@ -201,6 +209,12 @@ class PostController extends Controller
                 'reading_time' => $readingTime,
             ],
             'relatedPosts' => $relatedPosts,
+        ])->withViewData('seo', [
+            'type' => 'article',
+            'title' => $localizedTitle,
+            'description' => $seoDescription,
+            'image' => $post->coverUrl(),
+            'url' => url()->current(),
         ]);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -215,6 +216,15 @@ class ProductController extends Controller
         return Inertia::render('Public/Product/Show', [
             'product' => $productData,
             'relatedProducts' => $relatedProducts,
+        ])->withViewData('seo', [
+            'type' => 'product',
+            'title' => $productData['name'],
+            'description' => Str::limit(
+                trim((string) preg_replace('/\s+/', ' ', html_entity_decode(strip_tags((string) ($productData['description'] ?? '')), ENT_QUOTES | ENT_HTML5, 'UTF-8'))),
+                160
+            ),
+            'image' => $product->images->first()?->url(),
+            'url' => url()->current(),
         ]);
     }
 }
