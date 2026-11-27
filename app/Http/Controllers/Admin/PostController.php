@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Post;
 use App\Models\PostCategory;
+use App\Services\StatisticService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -117,6 +118,8 @@ class PostController extends Controller
             userId: $request->user()->id,
         );
 
+        app(StatisticService::class)->clearCache();
+
         return redirect()->route('admin.posts.index')->with('success', "Pos {$post->title} berhasil disimpan.");
     }
 
@@ -187,6 +190,8 @@ class PostController extends Controller
             userId: $request->user()->id,
         );
 
+        app(StatisticService::class)->clearCache();
+
         return redirect()->route('admin.posts.index')->with('success', "Pos {$post->title} berhasil diperbarui.");
     }
 
@@ -205,6 +210,7 @@ class PostController extends Controller
         );
 
         $post->delete();
+        app(StatisticService::class)->clearCache();
 
         return redirect()->route('admin.posts.index')->with('success', "Pos {$title} berhasil dihapus.");
     }

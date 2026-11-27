@@ -8,6 +8,7 @@ import { ArrowRight, Calendar, Clock, Newspaper } from 'lucide-react';
 
 export interface PostItem {
     id: number;
+    type?: 'article' | 'news' | string;
     title: string;
     slug: string;
     excerpt: string;
@@ -51,6 +52,9 @@ function formatDate(dateStr: string | null, isEn: boolean) {
 export default function NewsSection({ posts = [] }: NewsSectionProps) {
     const { isEn, lp } = useLocale();
     if (!posts || posts.length === 0) return null;
+
+    const postHref = (post: PostItem) =>
+        lp(post.type === 'news' ? `/berita/${post.slug}` : `/artikel/${post.slug}`);
 
     const mainPost = posts[0];
     const mediumPosts = posts.slice(1, 3);
@@ -116,7 +120,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
                                     <div>
                                         <span className="text-xs text-slate">{dateInfo.full}</span>
                                         <h3 className="mt-2 font-display text-base font-bold text-navy line-clamp-2">
-                                            <Link href={lp(`/artikel/${post.slug}`)} className="hover:text-ocean">
+                                            <Link href={postHref(post)} className="hover:text-ocean">
                                                 {post.title}
                                             </Link>
                                         </h3>
@@ -126,7 +130,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
                                     </div>
                                     <div className="mt-4 pt-3 border-t border-line">
                                         <Link
-                                            href={lp(`/artikel/${post.slug}`)}
+                                            href={postHref(post)}
                                             className="inline-flex items-center gap-1.5 text-xs font-bold text-ocean hover:text-navy"
                                         >
                                             {isEn ? 'Read More' : 'Baca Selengkapnya'}
@@ -145,7 +149,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
                 {/* 1. Berita Utama Besar (Foto Lengkung Atas ArchImage) - 5 Kolom */}
                 {mainPost ? (
                     <article className="md:col-span-5 flex flex-col group">
-                        <Link href={lp(`/artikel/${mainPost.slug}`)} className="block relative overflow-hidden">
+                        <Link href={postHref(mainPost)} className="block relative overflow-hidden">
                             <ArchImage
                                 src={mainPost.cover}
                                 alt={mainPost.title}
@@ -164,7 +168,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
                             </div>
 
                             <h3 className="mt-2.5 font-display text-2xl font-bold text-navy transition-colors group-hover:text-ocean leading-snug">
-                                <Link href={lp(`/artikel/${mainPost.slug}`)}>
+                                <Link href={postHref(mainPost)}>
                                     {mainPost.title}
                                 </Link>
                             </h3>
@@ -175,7 +179,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
 
                             <div className="mt-4">
                                 <Link
-                                    href={lp(`/artikel/${mainPost.slug}`)}
+                                    href={postHref(mainPost)}
                                     className="inline-flex items-center gap-2 text-sm font-semibold text-ocean transition-colors hover:text-navy"
                                 >
                                     {isEn ? 'Read More' : 'Baca Selengkapnya'}
@@ -195,7 +199,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
                                 key={post.id}
                                 className="group rounded-card border border-line bg-white p-4 shadow-soft transition-all duration-200 hover:border-ocean/40"
                             >
-                                <Link href={lp(`/artikel/${post.slug}`)} className="block relative aspect-[16/10] overflow-hidden rounded-control bg-mist">
+                                <Link href={postHref(post)} className="block relative aspect-[16/10] overflow-hidden rounded-control bg-mist">
                                     {post.cover ? (
                                         <img
                                             src={post.cover}
@@ -216,7 +220,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
                                 <div className="mt-3.5">
                                     <span className="text-[11px] text-slate">{dateInfo.full}</span>
                                     <h4 className="mt-1 font-display text-base font-bold text-navy transition-colors group-hover:text-ocean line-clamp-2 leading-snug">
-                                        <Link href={lp(`/artikel/${post.slug}`)}>
+                                        <Link href={postHref(post)}>
                                             {post.title}
                                         </Link>
                                     </h4>
@@ -251,7 +255,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
                                     </span>
 
                                     <h5 className="mt-1 font-display text-xs font-bold text-navy leading-snug transition-colors group-hover:text-ocean line-clamp-2">
-                                        <Link href={lp(`/artikel/${post.slug}`)}>
+                                        <Link href={postHref(post)}>
                                             {post.title}
                                         </Link>
                                     </h5>

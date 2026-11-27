@@ -209,16 +209,18 @@ class StatisticService
         // Data Grafik Perbandingan dan Tren Tahunan
         $categoryCharts = $this->computeCategoryCharts($snapshots, $approvedMembers, $fishCategories);
 
-        // Berita Terkini (5 post terbaru)
+        // Berita & Artikel Terkini (5 pos paling baru yang tampil di publik, baik artikel maupun berita)
         $latestPosts = Post::with(['category' => fn ($q) => $q->withLocale($activeLocale), 'author'])
             ->withLocale($activeLocale)
-            ->where('status', 'published')
-            ->orderByDesc('published_at')
+            ->visiblePublicly()
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->limit(5)
             ->get()
             ->map(function (Post $post) use ($activeLocale) {
                 return [
                     'id' => $post->id,
+                    'type' => $post->type?->value ?? (string) $post->type,
                     'title' => $post->tr('title', $activeLocale),
                     'slug' => $post->slug,
                     'excerpt' => $post->tr('excerpt', $activeLocale),
