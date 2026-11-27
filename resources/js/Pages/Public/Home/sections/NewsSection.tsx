@@ -58,7 +58,6 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
 
     const mainPost = posts[0];
     const mediumPosts = posts.slice(1, 3);
-    const railPosts = posts.slice(3, 7);
 
     return (
         <Section
@@ -145,7 +144,7 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
             </div>
 
             {/* Desktop Magazine Layout (Asymmetrical 5/4/3 Grid) */}
-            <div className="mt-12 hidden md:grid md:grid-cols-12 gap-8 items-start">
+            <div className="mt-12 hidden md:grid md:grid-cols-12 gap-8 items-stretch">
                 {/* 1. Berita Utama Besar (Foto Lengkung Atas ArchImage) - 5 Kolom */}
                 {mainPost ? (
                     <article className="md:col-span-5 flex flex-col group">
@@ -233,39 +232,48 @@ export default function NewsSection({ posts = [] }: NewsSectionProps) {
                     })}
                 </div>
 
-                {/* 3. Daftar Kecil dengan Rel Tanggal Vertikal di Kiri - 3 Kolom */}
-                <div className="md:col-span-3 rounded-card border border-line bg-mist/60 p-5 shadow-xs">
-                    <div className="flex items-center gap-2 border-b border-line pb-3">
-                        <Clock className="h-4 w-4 text-ocean" />
-                        <h4 className="font-display text-sm font-bold uppercase tracking-wider text-navy">
-                            {isEn ? 'News Briefs' : 'Kilas Warta'}
-                        </h4>
-                    </div>
+                {/* 3. Daftar Kilas Warta setinggi section Warta Perikanan dengan semua artikel */}
+                <div className="md:col-span-3 md:relative">
+                    <div className="flex h-full flex-col rounded-card border border-line bg-mist/60 p-5 shadow-xs md:absolute md:inset-0">
+                        <div className="flex shrink-0 items-center justify-between gap-2 border-b border-line pb-3">
+                            <div className="flex items-center gap-2">
+                                <Clock className="h-4 w-4 text-ocean" />
+                                <h4 className="font-display text-sm font-bold uppercase tracking-wider text-navy">
+                                    {isEn ? 'News Briefs' : 'Kilas Warta'}
+                                </h4>
+                            </div>
+                            <span className="rounded-full bg-white px-2 py-0.5 font-mono text-[10px] font-bold text-slate border border-line">
+                                {posts.length}
+                            </span>
+                        </div>
 
-                    <div className="mt-4 relative pl-4 border-l-2 border-ocean/30 space-y-6">
-                        {(railPosts.length > 0 ? railPosts : posts.slice(0, 4)).map((post) => {
-                            const dateInfo = formatDate(post.published_at, isEn);
-                            return (
-                                <div key={post.id} className="relative group">
-                                    {/* Titik rel */}
-                                    <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-ocean" />
+                        <div className="mt-4 flex-1 overflow-y-auto pr-1.5">
+                            <div className="relative ml-1.5 border-l-2 border-ocean/30 pl-4 space-y-5 pb-2">
+                                {posts.map((post) => {
+                                    const dateInfo = formatDate(post.published_at, isEn);
+                                    return (
+                                        <div key={post.id} className="relative group">
+                                            {/* Titik rel */}
+                                            <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-ocean" />
 
-                                    <span className="font-mono text-[11px] font-bold text-ocean">
-                                        {dateInfo.dayMonth}
-                                    </span>
+                                            <span className="font-mono text-[11px] font-bold text-ocean">
+                                                {dateInfo.dayMonth}
+                                            </span>
 
-                                    <h5 className="mt-1 font-display text-xs font-bold text-navy leading-snug transition-colors group-hover:text-ocean line-clamp-2">
-                                        <Link href={postHref(post)}>
-                                            {post.title}
-                                        </Link>
-                                    </h5>
+                                            <h5 className="mt-1 font-display text-xs font-bold text-navy leading-snug transition-colors group-hover:text-ocean line-clamp-2">
+                                                <Link href={postHref(post)}>
+                                                    {post.title}
+                                                </Link>
+                                            </h5>
 
-                                    <span className="mt-1 block text-[10px] font-medium text-slate uppercase tracking-wider">
-                                        {post.category}
-                                    </span>
-                                </div>
-                            );
-                        })}
+                                            <span className="mt-1 block text-[10px] font-medium text-slate uppercase tracking-wider">
+                                                {post.category}
+                                            </span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
