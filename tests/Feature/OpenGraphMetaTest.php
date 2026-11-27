@@ -36,10 +36,13 @@ class OpenGraphMetaTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('<meta property="og:type" content="article">', false);
-        $response->assertSee('<meta property="og:title" content="Mengenal Budidaya Ikan Air Tawar Nusantara">', false);
+        $response->assertSee('<meta property="og:title" content="Mengenal Budidaya Ikan Air Tawar Nusantara | NSA">', false);
         $response->assertSee('<meta property="og:description" content="Panduan lengkap potensi nila, mas, lele, dan patin untuk perikanan berkelanjutan.">', false);
         $response->assertSee('/storage/posts/cover-sample.jpg">', false);
         $response->assertSee('<meta property="og:image" content="http', false);
+        $response->assertSee('<meta property="og:image:type" content="image/jpeg">', false);
+        $response->assertSee('<meta property="og:image:width" content="', false);
+        $response->assertSee('<meta property="og:image:height" content="', false);
         $response->assertSee('<meta name="twitter:card" content="summary_large_image">', false);
     }
 

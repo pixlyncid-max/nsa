@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ContentTranslation;
 use App\Models\Post;
 use App\Models\PostCategory;
+use App\Support\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -211,7 +212,7 @@ class PostController extends Controller
             'relatedPosts' => $relatedPosts,
         ])->withViewData('seo', [
             'type' => 'article',
-            'title' => $localizedTitle,
+            'title' => $localizedTitle.' | '.Brand::shortName(),
             'description' => $seoDescription,
             'image' => $post->coverUrl(),
             'url' => url()->current(),

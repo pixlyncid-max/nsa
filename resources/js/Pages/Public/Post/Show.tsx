@@ -184,9 +184,7 @@ export default function Show({
 
     const shareToWhatsApp = () => {
         window.open(
-            `https://api.whatsapp.com/send?text=${encodeURIComponent(
-                `${post.title} - ${currentUrl}`
-            )}`,
+            `https://api.whatsapp.com/send?text=${encodeURIComponent(currentUrl)}`,
             '_blank',
             'noopener,noreferrer'
         );
